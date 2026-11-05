@@ -1,0 +1,283 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Maison Delattre</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,700;9..144,900&family=Caveat:wght@600&display=swap">
+<style>
+/* Layout : fournil (brun croûte + farine) en haut, vitrine de pains illustrés en cartes, commande à retirer, gâteaux sur mesure. Papier kraft pour les étiquettes. */
+:root{--bg:#fbfaf7;--bg-2:#f1ede4;--fg:#2a1e14;--muted:#6b5d4f;--line:#e2dacc;--crust:#8a4b1f;--crust-deep:#5e3012;--wheat:#e0a84a;--wheat-ink:#2a1a03;--kraft:#c89f6b;--kraft-deep:#a97d4b;--flour:#fff;--ok:#2d7a4f;
+--display:"Fraunces",Georgia,serif;--hand:"Caveat",cursive;--body:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;--r-s:10px;--r-m:16px;--r-l:24px}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#17120e;--bg-2:#1f1812;--fg:#f3ece1;--muted:#b5a38e;--line:#3a2e24;--crust:#c7773a;--crust-deep:#3b2010;--ok:#6cc392;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#17120e;--bg-2:#1f1812;--fg:#f3ece1;--muted:#b5a38e;--line:#3a2e24;--crust:#c7773a;--crust-deep:#3b2010;--ok:#6cc392;color-scheme:dark}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:17px/1.55 var(--body)}
+h1,h2,h3{font-family:var(--display);margin:0;letter-spacing:-.02em;line-height:1.02;text-wrap:balance;font-weight:900}
+h2{font-size:clamp(32px,4.8vw,50px)}
+p{margin:0}a{color:var(--crust)}img,svg{max-width:100%}
+button,select,input{font:inherit;color:inherit}button{cursor:pointer;-webkit-tap-highlight-color:transparent}
+button:active{transform:scale(.97);transition:transform 80ms ease-out}
+:focus-visible{outline:3px solid var(--wheat);outline-offset:3px}
+.wrap{max-width:1100px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+section{padding-block:72px;position:relative;overflow:hidden}
+.k{font-family:var(--hand);font-size:24px;color:var(--crust);margin-bottom:6px}
+.lead{color:var(--muted);font-size:18px;max-width:34em;margin-top:12px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:12px 22px;border-radius:999px;font-weight:700;text-decoration:none;border:0;font-size:16px;transition:transform 120ms ease-out,filter 150ms}
+.btn:active{transform:scale(.97)}
+.btn-crust{background:var(--crust);color:#fff}.btn-crust:hover{filter:brightness(1.08)}
+.btn-wheat{background:var(--wheat);color:var(--wheat-ink)}
+.btn-ghost{color:inherit;background:transparent;box-shadow:inset 0 0 0 1.5px currentColor}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--crust-deep);z-index:40}
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:30;background:rgba(94,48,18,.78);backdrop-filter:blur(20px) saturate(160%);-webkit-backdrop-filter:blur(20px) saturate(160%);color:#fff7ea}
+@media (prefers-reduced-transparency:reduce){header,.bar{background:var(--crust-deep);backdrop-filter:none}}
+.nav{display:flex;justify-content:space-between;align-items:center;gap:12px;padding-block:12px}
+.logo{display:flex;align-items:center;gap:10px;color:inherit;text-decoration:none;font-family:var(--display);font-weight:900;font-size:20px}
+.logo svg{width:36px;height:36px}
+.nav ul{list-style:none;margin:0;padding:0;display:flex;gap:22px;font-weight:600;font-size:15px}
+.nav ul a{color:rgba(255,247,234,.8);text-decoration:none}.nav ul a:hover{color:#fff}
+.nav .right{display:flex;align-items:center;gap:8px}
+.nav .btn{min-height:40px;padding:9px 16px;font-size:14px}
+.burger{display:none;width:44px;height:44px;border:0;background:transparent;color:inherit;border-radius:var(--r-s);place-items:center}.burger svg{width:26px;height:26px}.burger .x{display:none}.nav.open .burger .x{display:block}.nav.open .burger .h{display:none}
+@media (max-width:860px){.burger{display:grid}.nav ul{display:none;position:absolute;left:0;right:0;top:100%;background:var(--crust-deep);flex-direction:column;gap:0;padding:6px max(16px,env(safe-area-inset-right,0px)) 14px max(16px,env(safe-area-inset-left,0px))}.nav.open ul{display:flex}.nav ul a{display:block;padding:15px 0;border-bottom:1px solid rgba(255,255,255,.1);font-size:17px;color:#fff}.nav ul li:last-child a{border:0}}
+@media (max-width:600px){.nav .btn{display:none}}
+/* hero fournil */
+.hero{background:var(--crust-deep);color:#fff7ea;padding-block:56px 0;overflow:hidden}
+.hero::before{content:"";position:absolute;inset:0;background:radial-gradient(70% 60% at 70% 20%,rgba(224,168,74,.35),transparent 70%),url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Ccircle cx='8' cy='8' r='1.2' fill='%23fff' fill-opacity='.08'/%3E%3Ccircle cx='38' cy='28' r='1' fill='%23fff' fill-opacity='.06'/%3E%3Ccircle cx='20' cy='48' r='1.4' fill='%23fff' fill-opacity='.07'/%3E%3C/svg%3E")}
+.hero .wrap{position:relative;display:grid;grid-template-columns:1fr 1fr;gap:30px;align-items:end}
+.hero h1{font-size:clamp(46px,7.6vw,92px);line-height:.95}
+.hero h1 em{font-style:italic;font-weight:700;color:var(--wheat)}
+.hero .lead{color:rgba(255,247,234,.8)}
+.hero .cta{display:flex;flex-wrap:wrap;gap:10px;margin:26px 0 40px}
+.hero .btn-ghost{color:#fff7ea}
+.pill{display:inline-flex;align-items:center;gap:8px;padding:7px 12px;border-radius:999px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);font-size:13.5px;font-weight:600;margin-bottom:18px}
+.pill i{width:8px;height:8px;border-radius:50%;background:#7bd389}.pill.closed i{background:#e07a5f}
+.bread-hero{width:100%;max-width:520px;justify-self:center;display:block;filter:drop-shadow(0 30px 40px rgba(0,0,0,.45))}
+.hi{animation:hi .7s cubic-bezier(.2,.7,.2,1) both;animation-delay:calc(var(--i) * 90ms)}
+@keyframes hi{from{opacity:.001;transform:translateY(14px)}to{opacity:1;transform:none}}
+.heat{animation:heat 3.4s ease-in-out infinite;transform-box:fill-box;transform-origin:center bottom}
+@keyframes heat{0%,100%{opacity:.25;transform:translateY(0) scaleX(1)}50%{opacity:.6;transform:translateY(-10px) scaleX(1.08)}}
+/* fournées */
+.four{background:var(--crust-deep);color:#fff7ea;padding-block:0 56px}
+.four .wrap{position:relative}
+.batches{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:var(--r-l);padding:14px}
+.batch{padding:14px;border-radius:var(--r-m);position:relative}
+.batch b{display:block;font-family:var(--display);font-size:28px;color:var(--wheat);font-variant-numeric:tabular-nums}
+.batch span{font-size:13px;color:rgba(255,247,234,.75);display:block;line-height:1.3}
+.batch.next{background:var(--wheat);color:var(--wheat-ink)}.batch.next b,.batch.next span{color:var(--wheat-ink)}
+.batch.next::after{content:"prochaine";position:absolute;top:-10px;right:12px;font-family:var(--hand);font-size:18px;background:var(--crust);color:#fff;padding:0 10px;border-radius:999px;transform:rotate(-3deg)}
+.batch.done{opacity:.55}
+/* vitrine */
+.tabs{display:flex;gap:8px;overflow-x:auto;padding-bottom:4px;margin:24px 0 20px;scrollbar-width:none}
+.tabs button{flex:none;min-height:44px;padding:10px 18px;border-radius:999px;border:1.5px solid var(--line);background:var(--bg);font-weight:600}
+.tabs button[aria-pressed="true"]{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.card{background:var(--bg-2);border-radius:var(--r-l);overflow:hidden;display:flex;flex-direction:column;transition:transform .25s cubic-bezier(.2,.7,.2,1)}
+.card:hover{transform:translateY(-4px)}
+.card .pic{aspect-ratio:4/3;background:linear-gradient(180deg,#f6efe2,#e9dcc4);display:grid;place-items:center;position:relative}
+.card .pic svg{width:72%;height:auto;filter:drop-shadow(0 14px 18px rgba(80,40,10,.28))}
+.card .tag{position:absolute;top:12px;left:12px;font-family:var(--hand);font-size:19px;background:var(--kraft);color:var(--wheat-ink);padding:2px 12px;border-radius:999px;transform:rotate(-3deg)}
+.card .body{padding:16px 18px 18px;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:6px 12px;align-items:start}
+.card h3{font-size:19px;grid-column:1;grid-row:1}
+.card p{font-size:14.5px;color:var(--muted);grid-column:1}
+.card .pr{font-family:var(--display);font-weight:900;font-size:20px;font-variant-numeric:tabular-nums;white-space:nowrap;grid-row:1;grid-column:2}
+.qty{grid-column:1/-1;display:flex;align-items:center;gap:8px;margin-top:6px}
+.qty button{width:40px;height:40px;border-radius:50%;border:1.5px solid var(--line);background:var(--bg);font-size:20px;line-height:1}
+.qty button.add{background:var(--crust);border-color:var(--crust);color:#fff}
+.qty output{min-width:22px;text-align:center;font-weight:700;font-variant-numeric:tabular-nums}
+.qty small{color:var(--muted);font-size:13px;margin-left:auto}
+.cart{position:sticky;bottom:calc(70px + env(safe-area-inset-bottom,0px));z-index:20;margin-top:22px;background:var(--fg);color:var(--bg);border-radius:var(--r-m);padding:12px 16px;display:none;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;box-shadow:0 20px 40px -20px rgba(0,0,0,.5)}
+.cart.show{display:flex}.cart b{font-variant-numeric:tabular-nums}
+.cart select{min-height:40px;border-radius:var(--r-s);border:1.5px solid rgba(255,255,255,.25);background:transparent;color:inherit;padding:0 8px}
+.cart button{background:var(--wheat);color:var(--wheat-ink);border:0;border-radius:999px;min-height:40px;padding:8px 16px;font-weight:700}
+@media (min-width:761px){.cart{bottom:16px}}
+.ok{display:none;margin-top:16px;padding:16px 18px;border-radius:var(--r-m);border:1px solid var(--line);background:var(--bg)}
+.ok.show{display:block}.ok b{color:var(--ok)}
+/* gâteaux */
+.cake{background:var(--bg-2)}
+.cake .wrap{display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:start}
+.cake .wrap>*{min-width:0}
+.opt{display:grid;gap:16px;margin-top:22px}
+.opt h3{font-size:14px;color:var(--muted);font-weight:600;margin-bottom:8px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chips button{min-height:44px;padding:9px 16px;border-radius:999px;border:1.5px solid var(--line);background:var(--bg);font-weight:600}
+.chips button[aria-pressed="true"]{background:var(--crust);border-color:var(--crust);color:#fff}
+.cakebox{background:var(--bg);border-radius:var(--r-l);padding:26px;border:1px solid var(--line);text-align:center;position:sticky;top:90px}
+.cakebox svg{width:220px;max-width:100%;margin:0 auto 10px;display:block}
+.cakebox h3{font-size:22px}.cakebox p{color:var(--muted);margin-top:6px}
+.cakebox .pr{font-family:var(--display);font-size:40px;font-weight:900;margin-top:10px;font-variant-numeric:tabular-nums}
+.cakebox .note{font-size:13px;color:var(--muted);margin-top:8px}
+#cake-layer{animation:pop .4s cubic-bezier(.2,.9,.3,1.3) both;transform-box:fill-box;transform-origin:center bottom}
+@keyframes pop{from{transform:scaleY(0)}to{transform:none}}
+/* histoire */
+.story .wrap{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center}
+.story .wrap>*{min-width:0}
+.photo{aspect-ratio:4/3;border-radius:var(--r-l);background:linear-gradient(160deg,#e9dcc4,#cdb28a);display:grid;place-items:center;position:relative;overflow:hidden;border:1px solid var(--line)}
+.photo svg{width:70%;height:auto}
+.photo figcaption{position:absolute;left:14px;bottom:14px;background:rgba(42,30,20,.8);color:#fff7ea;padding:6px 12px;border-radius:999px;font-size:13px}
+.facts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:22px}
+.facts div{border-top:2px solid var(--wheat);padding-top:10px}
+.facts b{display:block;font-family:var(--display);font-size:28px}
+.facts span{font-size:13px;color:var(--muted);display:block;line-height:1.3}
+/* infos */
+.infos .wrap{display:grid;grid-template-columns:1fr 1fr;gap:36px}
+.infos .wrap>*{min-width:0}
+.hours{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}
+.hours td{padding:9px 0;border-bottom:1px solid var(--line)}.hours td:last-child{text-align:right;font-weight:600}
+.hours tr.today td{color:var(--crust);font-weight:800}
+.tel{font-family:var(--display);font-size:clamp(30px,5vw,42px);font-weight:900;user-select:all}
+.badges{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.badges span{font-size:13px;font-weight:600;border:1px solid var(--line);border-radius:999px;padding:6px 12px;background:var(--bg)}
+.bar{display:none}
+@media (max-width:760px){.bar{display:grid;grid-template-columns:1fr 1fr;gap:10px;position:fixed;left:0;right:0;bottom:0;z-index:35;background:rgba(94,48,18,.82);backdrop-filter:blur(20px) saturate(160%);-webkit-backdrop-filter:blur(20px) saturate(160%);padding:10px max(16px,env(safe-area-inset-right,0px)) calc(10px + env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px))}.bar .btn-ghost{color:#fff}footer{padding-bottom:calc(24px + 80px + env(safe-area-inset-bottom,0px))!important}}
+footer{background:var(--crust-deep);color:rgba(255,247,234,.75);font-size:13px;padding-block:24px;border-top:3px solid var(--wheat)}
+footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.rv{opacity:0;transform:translateY(12px);transition:opacity .6s ease,transform .6s cubic-bezier(.2,.7,.2,1);transition-delay:var(--d,0s)}.rv.in{opacity:1;transform:none}
+.grid .card:nth-child(2){--d:.08s}.grid .card:nth-child(3){--d:.16s}.grid .card:nth-child(4){--d:.24s}.grid .card:nth-child(5){--d:.32s}.grid .card:nth-child(6){--d:.4s}
+@media (prefers-reduced-motion:reduce){.rv{opacity:1;transform:none}.hi,.heat,#cake-layer{animation:none!important;opacity:1}}
+@media (max-width:860px){.hero .wrap,.cake .wrap,.story .wrap,.infos .wrap{grid-template-columns:1fr}.hero .wrap{gap:0}.bread-hero{max-width:340px;margin-top:-10px}.batches{grid-template-columns:1fr 1fr}.grid{grid-template-columns:1fr 1fr}.cakebox{position:static}}
+@media (max-width:520px){.grid{grid-template-columns:1fr}}
+</style></head><body><script>try{history.scrollRestoration="manual"}catch(e){}(function(){function top(){if(!location.hash)window.scrollTo(0,0)}top();addEventListener("pageshow",top);addEventListener("load",function(){top();setTimeout(top,60);setTimeout(top,400)})})();</script>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+<linearGradient id="crust" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e6b06a"/><stop offset=".6" stop-color="#b86a2a"/><stop offset="1" stop-color="#7a3f14"/></linearGradient>
+<linearGradient id="gold" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f3d08a"/><stop offset="1" stop-color="#c47a2c"/></linearGradient>
+<linearGradient id="choc" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5a3620"/><stop offset="1" stop-color="#2d170b"/></linearGradient>
+<linearGradient id="cream" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff6dc"/><stop offset="1" stop-color="#f1d9a2"/></linearGradient>
+<linearGradient id="sugar" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f6d9a0"/><stop offset="1" stop-color="#c8862f"/></linearGradient>
+<symbol id="baguette" viewBox="0 0 240 90"><path d="M10 50c20-30 200-40 220-10 5 8-5 22-25 28-60 18-150 22-185 8-10-4-14-16-10-26z" fill="url(#crust)"/><g stroke="#f7e3bd" stroke-width="5" stroke-linecap="round" opacity=".9"><path d="M55 36l22 14M95 30l22 14M135 26l22 14M175 24l22 12"/></g></symbol>
+<symbol id="boule" viewBox="0 0 200 160"><ellipse cx="100" cy="135" rx="80" ry="14" fill="rgba(60,30,10,.18)"/><path d="M20 110c0-50 36-90 80-90s80 40 80 90c0 16-36 26-80 26s-80-10-80-26z" fill="url(#crust)"/><path d="M62 60c20-20 56-20 76 0M52 90c26-26 70-26 96 0" stroke="#f7e3bd" stroke-width="6" stroke-linecap="round" fill="none"/><path d="M40 70c10 10 20 10 30 0" stroke="#fff" stroke-width="3" opacity=".5" fill="none"/></symbol>
+<symbol id="croissant" viewBox="0 0 220 140"><path d="M20 90c0-40 40-70 90-70s90 30 90 70c0 10-8 14-16 10-16-8-24-30-24-30s-6 30 6 46c4 6-2 12-10 10-18-6-30-22-36-38-6 16-18 32-36 38-8 2-14-4-10-10 12-16 6-46 6-46s-8 22-24 30c-8 4-16 0-16-10z" fill="url(#gold)"/><path d="M60 60c20-18 80-18 100 0" stroke="#fff3d6" stroke-width="5" stroke-linecap="round" fill="none" opacity=".7"/></symbol>
+<symbol id="painchoc" viewBox="0 0 200 130"><rect x="20" y="30" width="160" height="80" rx="26" fill="url(#gold)"/><path d="M50 30v80M80 30v80M120 30v80M150 30v80" stroke="#b86a2a" stroke-width="3" opacity=".5"/><rect x="26" y="52" width="148" height="10" rx="5" fill="url(#choc)"/><rect x="26" y="80" width="148" height="10" rx="5" fill="url(#choc)"/></symbol>
+<symbol id="tarte" viewBox="0 0 220 120"><ellipse cx="110" cy="100" rx="100" ry="14" fill="rgba(60,30,10,.18)"/><path d="M10 80c0-20 45-34 100-34s100 14 100 34-45 30-100 30S10 100 10 80z" fill="url(#crust)"/><ellipse cx="110" cy="76" rx="90" ry="24" fill="url(#sugar)"/><g fill="#fff6dc" opacity=".8"><circle cx="70" cy="72" r="3"/><circle cx="110" cy="66" r="3"/><circle cx="150" cy="74" r="3"/><circle cx="90" cy="82" r="2"/><circle cx="130" cy="84" r="2"/></g></symbol>
+<symbol id="eclair" viewBox="0 0 240 100"><rect x="20" y="40" width="200" height="46" rx="23" fill="url(#gold)"/><path d="M30 46c20-18 160-18 180 0" fill="url(#choc)"/><rect x="40" y="26" width="160" height="22" rx="11" fill="url(#choc)"/><path d="M60 36h120" stroke="#8a5a3a" stroke-width="3" opacity=".6"/></symbol>
+<symbol id="brioche" viewBox="0 0 200 160"><ellipse cx="100" cy="140" rx="70" ry="12" fill="rgba(60,30,10,.18)"/><path d="M30 120c0-30 30-50 70-50s70 20 70 50c0 12-30 22-70 22s-70-10-70-22z" fill="url(#gold)"/><circle cx="100" cy="62" r="34" fill="url(#gold)"/><path d="M40 95c20 10 40 12 60 12s40-2 60-12" stroke="#b86a2a" stroke-width="3" fill="none" opacity=".5"/></symbol>
+<symbol id="gateau" viewBox="0 0 220 180"><ellipse cx="110" cy="165" rx="90" ry="12" fill="rgba(60,30,10,.18)"/><g id="cake-layer"><path d="M30 150V90c0-10 36-16 80-16s80 6 80 16v60c0 10-36 16-80 16s-80-6-80-16z" fill="var(--cake,#f1c6c6)"/><ellipse cx="110" cy="90" rx="80" ry="16" fill="var(--cake2,#fbe1e1)"/><path d="M40 100c10 20 30 30 70 30s60-10 70-30" stroke="#fff" stroke-width="4" fill="none" opacity=".5"/></g><g fill="#c0392b"><circle cx="80" cy="84" r="6"/><circle cx="112" cy="80" r="6"/><circle cx="144" cy="86" r="6"/></g></symbol>
+</defs></svg>
+
+<header><div class="wrap nav" id="nav">
+  <a class="logo" href="#top"><svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="19" fill="#e0a84a"/><path d="M12 24c4-10 12-10 16 0" stroke="#5e3012" stroke-width="3" stroke-linecap="round" fill="none"/><path d="M20 10v8M16 12l4 4 4-4" stroke="#5e3012" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>Maison Delattre</a>
+  <ul><li><a href="#fournees">Les fournées</a></li><li><a href="#vitrine">La vitrine</a></li><li><a href="#gateaux">Gâteaux</a></li><li><a href="#histoire">La maison</a></li><li><a href="#infos">Infos</a></li></ul>
+  <div class="right"><a class="btn btn-wheat" href="#vitrine">Commander</a><button class="burger" id="burger" type="button" aria-label="Menu" aria-expanded="false"><svg class="h" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg><svg class="x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>
+</div></header>
+
+<section class="hero" id="top"><div class="wrap">
+  <div>
+    <span class="pill hi" style="--i:0" id="pill"><i></i><span id="pill-t">Fournil ouvert</span></span>
+    <h1 class="hi" style="--i:1">Le pain qui <em>craque encore</em> quand vous rentrez.</h1>
+    <p class="lead hi" style="--i:2">Levain maison, farines du moulin de Wancourt, trois fournées par jour. Commandez avant de partir, votre pain vous attend au chaud.</p>
+    <div class="cta hi" style="--i:3"><a class="btn btn-wheat" href="#vitrine">Commander pour aujourd'hui</a><a class="btn btn-ghost" href="#fournees">Prochaine fournée</a></div>
+  </div>
+  <svg class="bread-hero hi" style="--i:2" viewBox="0 0 520 360" aria-hidden="true">
+    <g class="heat" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" opacity=".4"><path d="M250 60c-8-12 8-20 0-32"/><path d="M290 50c-8-12 8-20 0-32"/><path d="M330 64c-8-12 8-20 0-32"/></g>
+    <use href="#boule" x="40" y="120" width="260" height="208"/>
+    <use href="#baguette" x="200" y="200" width="300" height="112"/>
+    <use href="#croissant" x="330" y="90" width="170" height="108"/>
+  </svg>
+</div></section>
+
+<section class="four" id="fournees"><div class="wrap">
+  <div class="batches rv" id="batches">
+    <div class="batch" data-h="6.5"><b>6h30</b><span>Baguettes, pains au levain, viennoiseries</span></div>
+    <div class="batch" data-h="11"><b>11h</b><span>Deuxième fournée de baguettes, pains spéciaux</span></div>
+    <div class="batch" data-h="16.5"><b>16h30</b><span>Fournée du soir : baguettes, pains au chocolat</span></div>
+    <div class="batch" data-h="18"><b>18h</b><span>Dernières baguettes tradition</span></div>
+  </div>
+</div></section>
+
+<section id="vitrine"><div class="wrap">
+  <div class="k">La vitrine du jour</div>
+  <h2>Choisissez, on vous le met de côté.</h2>
+  <p class="lead">Réglez en boutique, aucun compte à créer. Tout ce qui est ici est fait au fournil, ce matin.</p>
+  <div class="tabs" role="group" aria-label="Rayons" id="tabs"></div>
+  <div class="grid" id="grid"></div>
+  <div class="cart" id="cart" aria-live="polite"><div><b id="cn">0 article</b> · <b id="ct">0,00 €</b></div><label style="display:flex;align-items:center;gap:8px;font-size:14px">Retrait <select id="slot"><option>7h30</option><option>8h00</option><option>12h00</option><option>17h30</option><option>18h30</option></select></label><button type="button" id="go">Réserver</button></div>
+  <p class="ok" id="done" role="status"></p>
+</div></section>
+
+<section class="cake" id="gateaux"><div class="wrap">
+  <div>
+    <div class="k">Sur commande</div>
+    <h2>Le gâteau de la fête, à votre goût.</h2>
+    <p class="lead">Choisissez la taille et le parfum, on vous dit le prix tout de suite. Prévenez-nous 48 h à l'avance, on s'occupe de l'inscription au chocolat.</p>
+    <div class="opt">
+      <div><h3>Pour combien ?</h3><div class="chips" data-g="size"><button type="button" aria-pressed="true" data-v="6">6 parts</button><button type="button" data-v="8">8 parts</button><button type="button" data-v="12">12 parts</button><button type="button" data-v="20">20 parts</button></div></div>
+      <div><h3>Le parfum</h3><div class="chips" data-g="fl"><button type="button" aria-pressed="true" data-c="#f1c6c6,#fbe1e1">Fraisier</button><button type="button" data-c="#5a3620,#8a5a3a">Tout chocolat</button><button type="button" data-c="#f7e2a8,#fff3cf">Tarte au citron meringuée</button><button type="button" data-c="#d9c7a8,#f1e4cc">Paris-Brest</button><button type="button" data-c="#c7d8b8,#e6f0dc">Pistache-framboise</button></div></div>
+      <div><h3>Un petit plus</h3><div class="chips" data-g="xt" data-multi><button type="button">Inscription au chocolat</button><button type="button">Bougies</button><button type="button">Boîte cadeau</button></div></div>
+    </div>
+  </div>
+  <div class="cakebox rv">
+    <svg viewBox="0 0 220 180" id="cake-svg" aria-hidden="true"><use href="#gateau"/></svg>
+    <h3 id="ck-t">Fraisier, 6 parts</h3><p id="ck-p">Génoise, crème mousseline, fraises de saison.</p>
+    <div class="pr" id="ck-pr">24,00 €</div>
+    <p class="note">Prêt sous 48 h · acompte de 30 % à la commande</p>
+    <a class="btn btn-crust" href="tel:+33321000000" style="margin-top:14px">Commander par téléphone</a>
+  </div>
+</div></section>
+
+<section class="story" id="histoire"><div class="wrap">
+  <figure class="photo rv" style="margin:0"><svg viewBox="0 0 300 220" aria-hidden="true"><rect x="30" y="120" width="240" height="60" rx="8" fill="#8a4b1f"/><rect x="40" y="60" width="220" height="60" rx="30" fill="#2a1e14"/><rect x="60" y="80" width="180" height="30" rx="15" fill="#e0a84a"/><use href="#boule" x="95" y="30" width="110" height="88"/><g fill="#fff" opacity=".9"><circle cx="70" cy="150" r="3"/><circle cx="230" cy="150" r="3"/></g></svg><figcaption>Le four à sole, installé en 1987</figcaption></figure>
+  <div class="rv">
+    <div class="k">La maison</div>
+    <h2>Trois générations devant le même four.</h2>
+    <p class="lead">Jean Delattre a allumé le four à sole en 1987. Sa fille Claire a ramené le levain en 2012. Aujourd'hui, c'est Thomas qui se lève à 4 h, et la recette de la tarte au sucre n'a pas bougé d'un gramme.</p>
+    <div class="facts"><div><b>1987</b><span>le four à sole d'origine, toujours en service</span></div><div><b>4 h</b><span>l'heure du premier pétrin, chaque matin</span></div><div><b>24 h</b><span>de pousse lente pour les pains au levain</span></div></div>
+  </div>
+</div></section>
+
+<section class="infos" id="infos" style="background:var(--bg-2)"><div class="wrap">
+  <div>
+    <div class="k">Nous trouver</div>
+    <h2>Place de la République, Avion.</h2>
+    <p class="tel" style="margin-top:16px">03 21 00 00 00</p>
+    <p style="color:var(--muted);margin-top:8px">12 place de la République, 62210 Avion · Parking minute devant la boutique</p>
+    <div class="badges"><span>Levain maison</span><span>Farines locales</span><span>Tickets resto</span><span>CB dès 1 €</span><span>Accès PMR</span></div>
+    <div style="margin-top:22px;display:flex;gap:10px;flex-wrap:wrap"><a class="btn btn-crust" href="#vitrine">Commander à retirer</a><a class="btn btn-ghost" href="https://www.google.com/maps/search/place+de+la+République+Avion">Itinéraire</a></div>
+  </div>
+  <div><table class="hours" id="hours"><tr data-d="1"><td>Lundi</td><td style="color:var(--muted);font-weight:500">Fermé</td></tr><tr data-d="2"><td>Mardi</td><td>6h30 – 19h30</td></tr><tr data-d="3"><td>Mercredi</td><td>6h30 – 19h30</td></tr><tr data-d="4"><td>Jeudi</td><td>6h30 – 19h30</td></tr><tr data-d="5"><td>Vendredi</td><td>6h30 – 19h30</td></tr><tr data-d="6"><td>Samedi</td><td>6h30 – 19h30</td></tr><tr data-d="0"><td>Dimanche</td><td>7h – 13h</td></tr></table></div>
+</div></section>
+
+<footer><div class="wrap"><span>Maison Delattre · Avion · Site de démonstration, boulangerie fictive</span><span>Conçu par Devanture Web · contact.devantureweb@gmail.com</span></div></footer>
+<div class="bar"><a class="btn btn-wheat" href="#vitrine">Commander</a><a class="btn btn-ghost" href="tel:+33321000000">Appeler</a></div>
+
+<script>
+(function(){
+var eur=function(v){return v.toFixed(2).replace('.',',')+' €'};
+var now=new Date(),d=now.getDay(),h=now.getHours()+now.getMinutes()/60;
+var open=d===1?false:(d===0?(h>=7&&h<13):(h>=6.5&&h<19.5));
+var pt=document.getElementById('pill-t');pt.textContent=open?'Ouvert · fournil en activité':(d===1?'Fermé le lundi · réouvre demain 6h30':(h<6.5?'Ouvre à 6h30':'Fermé · réouvre demain 6h30'));
+if(!open)document.getElementById('pill').classList.add('closed');
+document.querySelectorAll('#hours tr').forEach(function(r){if(r.dataset.d===String(d))r.classList.add('today')});
+var bs=document.querySelectorAll('.batch'),nx=null;bs.forEach(function(b){var t=+b.dataset.h;if(t<h)b.classList.add('done');else if(!nx){nx=b;b.classList.add('next')}});
+var nav=document.getElementById('nav'),bg=document.getElementById('burger');bg.onclick=function(){var o=nav.classList.toggle('open');bg.setAttribute('aria-expanded',String(o))};nav.querySelectorAll('ul a').forEach(function(a){a.onclick=function(){nav.classList.remove('open')}});
+// vitrine
+var P=[
+{c:'Pains',n:'Baguette tradition',d:'Farine Label Rouge, pointe de levain, croûte fine',p:1.30,i:'baguette',t:'La star'},
+{c:'Pains',n:'Boule au levain',d:'800 g, 24 h de pousse, se garde 4 jours',p:4.60,i:'boule',t:'Levain maison'},
+{c:'Pains',n:'Pain aux céréales',d:'Lin, tournesol, sésame, pavot',p:3.40,i:'boule'},
+{c:'Viennoiseries',n:'Croissant pur beurre',d:'Beurre AOP Charentes-Poitou, 27 couches',p:1.25,i:'croissant',t:'Feuilleté maison'},
+{c:'Viennoiseries',n:'Pain au chocolat',d:'Deux barres de chocolat noir 60 %',p:1.35,i:'painchoc'},
+{c:'Viennoiseries',n:'Brioche tressée',d:'400 g, pur beurre, parfaite au petit-déjeuner',p:5.90,i:'brioche'},
+{c:'Pâtisseries',n:'Tarte au sucre',d:'Cassonade et crème, la recette de 1987',p:9.80,i:'tarte',t:'Recette de la maison'},
+{c:'Pâtisseries',n:'Éclair au chocolat',d:'Crème pâtissière au chocolat noir, glaçage fondant',p:3.20,i:'eclair'},
+{c:'Pâtisseries',n:'Tarte aux pommes',d:'La part, pommes du verger de Vimy',p:3.40,i:'tarte'}];
+var q={},cat='Pains',g=document.getElementById('grid'),t=document.getElementById('tabs');
+['Pains','Viennoiseries','Pâtisseries'].forEach(function(c){var b=document.createElement('button');b.type='button';b.textContent=c;b.onclick=function(){cat=c;draw()};t.appendChild(b)});
+function draw(){t.querySelectorAll('button').forEach(function(b){b.setAttribute('aria-pressed',String(b.textContent===cat))});
+g.innerHTML='';P.forEach(function(x,k){if(x.c!==cat)return;var n=q[k]||0;var el=document.createElement('div');el.className='card rv in';
+el.innerHTML='<div class="pic"><svg aria-hidden="true"><use href="#'+x.i+'"/></svg>'+(x.t?'<span class="tag">'+x.t+'</span>':'')+'</div><div class="body"><h3>'+x.n+'</h3><span class="pr">'+eur(x.p)+'</span><p>'+x.d+'</p><div class="qty">'+(n?'<button type="button" data-k="'+k+'" data-d="-1" aria-label="Retirer">−</button><output>'+n+'</output>':'')+'<button type="button" class="add" data-k="'+k+'" data-d="1" aria-label="Ajouter '+x.n+'">+</button><small>'+(n?'dans votre commande':'ajouter')+'</small></div></div>';g.appendChild(el)});
+var tot=0,cnt=0;for(var k in q){tot+=q[k]*P[k].p;cnt+=q[k]}
+document.getElementById('cn').textContent=cnt+(cnt>1?' articles':' article');document.getElementById('ct').textContent=eur(tot);document.getElementById('cart').classList.toggle('show',cnt>0)}
+g.addEventListener('click',function(e){var b=e.target.closest('button[data-k]');if(!b)return;var k=b.dataset.k;q[k]=Math.max(0,(q[k]||0)+ +b.dataset.d);if(!q[k])delete q[k];draw()});
+document.getElementById('go').onclick=function(){var o=document.getElementById('done'),l=[];for(var k in q)l.push(q[k]+' × '+P[k].n);o.innerHTML='<b>Commande notée (démonstration).</b> '+l.join(', ')+', à retirer à '+document.getElementById('slot').value+'. Sur le vrai site, la boulangerie la reçoit sur sa tablette et vous confirme par SMS.';o.classList.add('show');q={};draw();o.scrollIntoView({behavior:'smooth',block:'center'})};
+draw();
+// gâteaux
+var C={size:6,fl:'Fraisier',xt:[]},base={Fraisier:4,"Tout chocolat":4.2,"Tarte au citron meringuée":3.6,"Paris-Brest":4.1,"Pistache-framboise":4.5},desc={Fraisier:'Génoise, crème mousseline, fraises de saison.',"Tout chocolat":'Mousse noire 70 %, croustillant praliné, glaçage miroir.',"Tarte au citron meringuée":'Pâte sablée, crémeux citron, meringue italienne flambée.',"Paris-Brest":'Pâte à choux, praliné noisette maison.',"Pistache-framboise":'Dacquoise pistache, framboises fraîches.'};
+function cake(){document.querySelectorAll('.cake .chips').forEach(function(g){var k=g.dataset.g;g.querySelectorAll('button').forEach(function(b){b.setAttribute('aria-pressed',String(k==='xt'?C.xt.indexOf(b.textContent)>-1:(k==='size'?+b.dataset.v===C.size:C.fl===b.textContent)))})});
+var p=C.size*base[C.fl]+(C.xt.indexOf('Inscription au chocolat')>-1?2:0)+(C.xt.indexOf('Bougies')>-1?1.5:0)+(C.xt.indexOf('Boîte cadeau')>-1?3:0);
+document.getElementById('ck-t').textContent=C.fl+', '+C.size+' parts';document.getElementById('ck-p').textContent=desc[C.fl]+(C.xt.length?' Avec '+C.xt.join(', ').toLowerCase()+'.':'');document.getElementById('ck-pr').textContent=eur(p);
+var col=document.querySelector('.chips[data-g=fl] [aria-pressed=true]').dataset.c.split(',');var sv=document.getElementById('cake-svg');sv.style.setProperty('--cake',col[0]);sv.style.setProperty('--cake2',col[1]);
+var L=sv.querySelector('use');L.setAttribute('transform','scale('+(0.85+C.size/60)+')');L.setAttribute('transform-origin','110 170');
+var n=sv.cloneNode(true);sv.parentNode.replaceChild(n,sv)}
+document.querySelectorAll('.cake .chips').forEach(function(g){g.addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;var k=g.dataset.g;if(k==='xt'){var i=C.xt.indexOf(b.textContent);i>-1?C.xt.splice(i,1):C.xt.push(b.textContent)}else if(k==='size')C.size=+b.dataset.v;else C.fl=b.textContent;cake()})});cake();
+var io='IntersectionObserver' in window?new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.1}):null;
+document.querySelectorAll('.rv').forEach(function(e){io?io.observe(e):e.classList.add('in')});
+})();
+</script>
+</body></html>

@@ -1,0 +1,635 @@
+<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>Au Briquet du Chevalet</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Caveat:wght@500;700&display=swap">
+<style>
+/* Layout : grandes photos pleine largeur, bandes crème / charbon, accents laiton (lampe de mineur) et vert sapin (les stores de la façade). */
+:root{
+  --bg:#ffffff; --bg-2:#f5f4f1; --card:#ffffff; --fg:#1d1d1f; --muted:#5f5b55; --line:#e3e0da;
+  --coal:#16130f; --coal-2:#231e18; --on-coal:#f3ebdb; --on-coal-muted:#cfc5b2; --coal-line:#352d24;
+  --brass:#c9933a; --brass-deep:#8a5f17; --brass-ink:#1a1408; --pine:#2f6b5e; --pine-soft:#dfece7;
+  --chalk:#f1ead8; --board:#1f2a26;
+  --display:"Bricolage Grotesque",system-ui,sans-serif; --body:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",sans-serif; --r-s:10px; --r-m:16px; --r-l:24px; --hand:"Caveat","Segoe Script",cursive;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#1a1611;--bg-2:#221d17;--card:#272119;--fg:#f0e8d8;--muted:#b3a68f;--line:#3b332a;--brass:#d6a349;--brass-deep:#e0b05a;--pine:#5fae9b;--pine-soft:#1f3b35;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#1a1611;--bg-2:#221d17;--card:#272119;--fg:#f0e8d8;--muted:#b3a68f;--line:#3b332a;--brass:#d6a349;--brass-deep:#e0b05a;--pine:#5fae9b;--pine-soft:#1f3b35;color-scheme:dark}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--body);font-size:17px;line-height:1.6}
+img{max-width:100%;display:block}
+h1,h2,h3{font-family:var(--display);margin:0;line-height:1.02;letter-spacing:-.02em;text-wrap:balance;font-optical-sizing:auto}
+h2{font-size:clamp(32px,4.6vw,52px);font-weight:800}
+h3{font-size:21px;font-weight:800;letter-spacing:-.01em}
+p{margin:0}
+a{color:var(--brass-deep)}
+:focus-visible{outline:3px solid var(--brass);outline-offset:3px}
+.wrap{max-width:1140px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.band{padding-block:84px}
+.stack{display:flex;flex-direction:column;gap:18px}
+.eyebrow{font-weight:600;font-size:13px;letter-spacing:.02em;color:var(--brass-deep)}
+.dark .eyebrow{color:var(--brass)}
+.lead{font-size:19px;color:var(--muted);max-width:36em}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:15px 24px;min-height:48px;border-radius:999px;font-family:var(--display);font-weight:800;font-size:16px;letter-spacing:-.01em;text-decoration:none;border:0;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:transform 120ms ease-out,background 150ms,box-shadow 150ms}
+.btn:active{transform:scale(.97);transition-duration:80ms}
+button:not(.btn):active{transform:scale(.96);transition:transform 80ms ease-out}
+.btn-brass{background:var(--brass);color:var(--brass-ink);box-shadow:0 6px 20px rgba(201,147,58,.3)}
+.btn-brass:hover{filter:brightness(1.06)}
+.btn-ghost{background:transparent;color:inherit;border:1.5px solid currentColor}
+.btn svg{width:18px;height:18px}
+
+/* header */
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:40;background:var(--coal)}
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:30;background:rgba(22,19,15,.72);backdrop-filter:blur(20px) saturate(160%);-webkit-backdrop-filter:blur(20px) saturate(160%);color:var(--on-coal);box-shadow:0 1px 0 rgba(255,255,255,.06) inset,0 12px 30px -18px rgba(0,0,0,.5)}
+@media (prefers-reduced-transparency:reduce){header,.bar{background:var(--coal);backdrop-filter:none;-webkit-backdrop-filter:none}.chip{background:rgba(22,19,15,.85);backdrop-filter:none}}
+.nav{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:12px}
+.brand{display:flex;align-items:center;gap:12px;color:var(--on-coal);text-decoration:none;font-family:var(--display);font-weight:800;font-size:18px;line-height:1}
+.brand .logo{width:38px;height:38px;border-radius:50%;background:var(--brass);display:grid;place-items:center;color:var(--brass-ink)}
+.brand .logo svg{width:22px;height:22px}
+.brand small{display:block;font-family:var(--body);font-weight:500;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--on-coal-muted);margin-top:4px}
+.nav ul{list-style:none;margin:0;padding:0;display:flex;gap:24px;font-weight:600;font-size:15px}
+.nav ul a{color:var(--on-coal-muted);text-decoration:none;padding:6px 0;border-bottom:2px solid transparent;transition:color .15s,border-color .15s;font-weight:600}
+.nav ul a:hover,.nav ul a.on{color:var(--on-coal);border-color:var(--brass)}
+.nav .btn{padding:11px 18px;min-height:40px;font-size:14px}
+.nav .right{display:flex;align-items:center;gap:8px}
+.burger{display:none;width:44px;height:44px;border:0;border-radius:var(--r-s);background:transparent;color:var(--on-coal);cursor:pointer;place-items:center}
+.burger svg{width:26px;height:26px}
+.burger .x{display:none}
+.nav.open .burger .x{display:block}.nav.open .burger .h{display:none}
+@media (max-width:900px){
+  .burger{display:grid}
+  .nav ul{display:none;position:absolute;left:0;right:0;top:100%;background:var(--coal);flex-direction:column;gap:0;padding:6px max(16px,env(safe-area-inset-right,0px)) 14px max(16px,env(safe-area-inset-left,0px));border-bottom:1px solid var(--coal-line);box-shadow:0 20px 40px rgba(0,0,0,.35)}
+  .nav.open ul{display:flex}
+  .nav ul a{display:block;padding:15px 0;border-bottom:1px solid var(--coal-line);font-size:17px;color:var(--on-coal)}
+  .nav ul li:last-child a{border-bottom:0}
+}
+@media (max-width:600px){.nav .btn{display:none}.brand small{display:none}}
+
+/* animations au défilement */
+.js .rv{opacity:0;transform:translateY(12px);transition:opacity .6s ease,transform .6s cubic-bezier(.2,.7,.2,1);transition-delay:var(--d,0s)}
+.js .rv.in{opacity:1;transform:none}
+.js .rv-img{overflow:hidden}
+.js .rv-img img{transform:scale(1.05);transition:transform 1.1s cubic-bezier(.2,.7,.2,1)}
+.js .rv-img.in img{transform:none}
+.plist>div:nth-child(2){--d:.12s}.plist>div:nth-child(3){--d:.24s}
+.gal button:nth-child(2){--d:.1s}.gal button:nth-child(3){--d:.2s}.gal button:nth-child(4){--d:.3s}
+.numbers div:nth-child(2){--d:.1s}.numbers div:nth-child(3){--d:.2s}
+.timeline li:nth-child(2){--d:.1s}.timeline li:nth-child(3){--d:.2s}.timeline li:nth-child(4){--d:.3s}.timeline li:nth-child(5){--d:.4s}
+@media (prefers-reduced-motion:reduce){.js .rv{opacity:1;transform:none}.js .rv-img img{transform:none}}
+
+/* barre mobile + fiche réservation */
+.bar{display:none}
+@media (max-width:760px){
+  .bar{display:grid;grid-template-columns:1fr 1fr;gap:10px;position:fixed;left:0;right:0;bottom:0;z-index:35;background:rgba(22,19,15,.78);backdrop-filter:blur(20px) saturate(160%);-webkit-backdrop-filter:blur(20px) saturate(160%);box-shadow:0 1px 0 rgba(255,255,255,.06) inset;padding:10px max(16px,env(safe-area-inset-right,0px)) calc(10px + env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px))}
+  .bar .btn{min-height:48px;font-size:15px;padding:10px 12px}
+  .bar .btn-ghost{color:var(--on-coal);border-color:rgba(243,235,219,.4)}
+  footer{padding-bottom:calc(34px + 80px + env(safe-area-inset-bottom,0px))}
+}
+.modal{position:fixed;inset:0;z-index:45;display:flex;align-items:flex-end;justify-content:center;background:rgba(10,8,6,.6);padding:12px;opacity:0;visibility:hidden;transition:opacity .25s ease,visibility 0s linear .25s}
+.modal.open{opacity:1;visibility:visible;transition:opacity .25s ease}
+.modal .sheet{transform:translateY(24px);transition:transform .3s cubic-bezier(.2,.7,.2,1)}
+.modal.open .sheet{transform:none}
+@media (min-width:700px){.modal .sheet{transform:scale(.96) translateY(8px);transform-origin:top center}}
+.sheet{position:relative;background:var(--card);color:var(--fg);border-radius:var(--r-l);padding:28px 24px calc(24px + env(safe-area-inset-bottom,0px));width:min(480px,100%);display:grid;gap:14px;box-shadow:0 -20px 60px rgba(0,0,0,.45)}
+.sheet .num{font-family:var(--display);font-size:clamp(34px,9vw,46px);font-weight:800;letter-spacing:.02em;user-select:all;line-height:1}
+.sheet .close{position:absolute;top:12px;right:12px;width:40px;height:40px;border-radius:50%;border:0;background:var(--bg-2);color:var(--fg);font-size:22px;cursor:pointer}
+.sheet .row{display:grid;gap:10px}
+.sheet .btn-ghost{border-color:var(--line)}
+@media (min-width:700px){.modal{align-items:center}}
+
+/* hero */
+.hero{position:relative;background:var(--coal);color:var(--on-coal);min-height:min(88vh,760px);display:flex;align-items:flex-end;overflow:hidden}
+.hero img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 60%}
+.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(22,19,15,.25) 0%,rgba(22,19,15,.15) 35%,rgba(22,19,15,.86) 75%,#16130f 100%)}
+.hero .wrap{position:relative;z-index:1;width:100%;padding-block:150px 64px;display:grid;gap:26px}
+.hero h1{font-size:clamp(46px,8.2vw,110px);font-weight:800;line-height:.92;max-width:11ch}
+.hero h1 span{color:var(--brass)}
+.hero .lead{color:var(--on-coal);opacity:.92;font-size:clamp(18px,2.2vw,22px)}
+.chips{display:flex;flex-wrap:wrap;gap:10px}
+.chip{display:inline-flex;align-items:center;gap:8px;padding:8px 14px;border-radius:999px;background:rgba(22,19,15,.55);border:1px solid rgba(243,235,219,.22);font-weight:600;font-size:14px;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+.chip .dot{width:9px;height:9px;border-radius:50%;background:#7bd389;box-shadow:0 0 0 4px rgba(123,211,137,.25)}
+.chip.closed .dot{background:#e07a5f;box-shadow:0 0 0 4px rgba(224,122,95,.25)}
+.chip .star{color:var(--brass)}
+.hero .cta{display:flex;flex-wrap:wrap;gap:12px}
+.hero .btn-ghost{color:var(--on-coal);border-color:rgba(243,235,219,.5)}
+.hero-in{animation:rise .6s cubic-bezier(.2,.7,.2,1) both}
+@keyframes rise{from{opacity:.001;transform:translateY(10px)}to{opacity:1;transform:none}}
+
+/* ardoise */
+.ardoise{background:var(--coal);color:var(--on-coal);padding-block:0 84px}
+.ardoise .wrap{display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:stretch}
+.board{background:var(--board);border:10px solid #5a3b22;border-radius:var(--r-s);box-shadow:inset 0 0 60px rgba(0,0,0,.45),0 20px 50px rgba(0,0,0,.4);padding:36px 40px;font-family:var(--hand);color:var(--chalk);display:flex;flex-direction:column;gap:14px;position:relative;min-height:100%}
+.board .t{font-size:clamp(30px,3.6vw,44px);font-weight:700;text-decoration:underline wavy rgba(241,234,216,.45);text-underline-offset:8px}
+.board .dish{font-size:clamp(28px,3.4vw,40px);line-height:1.1}
+.board .price{font-size:clamp(44px,5vw,64px);font-weight:700;color:#ffd98a;line-height:1}
+.board .sub{font-family:var(--body);font-size:14px;color:rgba(241,234,216,.7)}
+.board .pin{position:absolute;top:-22px;right:28px;width:16px;height:16px;border-radius:50%;background:var(--brass);box-shadow:0 2px 4px rgba(0,0,0,.5)}
+.dish-photo{border-radius:var(--r-m);overflow:hidden;position:relative;min-height:340px}
+.dish-photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.dish-photo figcaption{position:absolute;left:18px;bottom:18px;background:rgba(22,19,15,.8);padding:8px 14px;border-radius:999px;font-size:13px;font-weight:600}
+
+/* promesses */
+.promesses{display:grid;grid-template-columns:1.05fr .95fr;gap:56px;align-items:center}
+.promesses>*{min-width:0}
+.plist{display:grid;gap:14px;margin-top:10px}
+.plist>div{display:grid;grid-template-columns:52px minmax(0,1fr);gap:16px;align-items:start;padding:18px 20px;background:var(--card);border:1px solid var(--line);border-radius:var(--r-m)}
+.plist h3{font-size:19px}
+.plist .ic{width:52px;height:52px;border-radius:var(--r-s);background:var(--pine-soft);color:var(--pine);display:grid;place-items:center}
+.plist .ic svg{width:26px;height:26px}
+.plist p{color:var(--muted);font-size:15.5px;margin-top:4px}
+.portrait{position:relative}
+.portrait img{border-radius:var(--r-m);aspect-ratio:3/2;object-fit:cover;width:100%}
+.portrait .tag{position:absolute;left:-10px;bottom:28px;background:var(--brass);color:var(--brass-ink);font-family:var(--hand);font-size:26px;font-weight:700;padding:8px 18px;border-radius:var(--r-s);transform:rotate(-3deg);box-shadow:0 10px 24px rgba(0,0,0,.2)}
+
+/* briquet */
+.briquet{background:var(--bg-2)}
+.briquet .wrap{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start}
+.briquet .wrap>*{min-width:0}
+.musette{display:grid;gap:12px}
+.musette .tabs{display:flex;flex-wrap:wrap;gap:8px}
+.musette .tabs button{font:600 15px var(--body);padding:10px 16px;border-radius:999px;border:1.5px solid var(--line);background:var(--card);color:var(--fg);cursor:pointer;min-height:44px}
+.musette .tabs button[aria-selected="true"]{background:var(--coal);color:var(--on-coal);border-color:var(--coal)}
+.musette .panel{background:var(--card);border:1px solid var(--line);border-radius:var(--r-m);padding:26px 28px;display:grid;grid-template-columns:72px 1fr;gap:20px;align-items:center;min-height:170px}
+.musette .panel svg{width:72px;height:72px}
+.musette .panel h3{margin-bottom:6px}
+.musette .panel p{color:var(--muted)}
+.musette .panel .now{margin-top:10px;font-family:var(--hand);font-size:22px;color:var(--brass-deep)}
+
+/* carte */
+.menu-tabs{display:flex;flex-wrap:wrap;gap:8px;margin:28px 0 22px}
+.menu-tabs button{font:800 15px var(--display);padding:12px 18px;border-radius:var(--r-s);border:1.5px solid var(--line);background:transparent;color:var(--fg);cursor:pointer;min-height:44px}
+.menu-tabs button[aria-selected="true"]{background:var(--brass);border-color:var(--brass);color:var(--brass-ink)}
+.menu-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 48px}
+.menu-grid .it{display:flex;justify-content:space-between;gap:16px;padding:16px 0;border-bottom:1px dashed var(--line);align-items:baseline}
+.menu-grid .it strong{font-family:var(--display);font-size:18px;font-weight:800}
+.menu-grid .it span{display:block;color:var(--muted);font-size:14.5px;margin-top:2px}
+.menu-grid .pr{font-family:var(--display);font-weight:800;color:var(--brass-deep);white-space:nowrap}
+.menu-note{margin-top:22px;display:flex;gap:12px;align-items:center;color:var(--muted);font-size:15px}
+.menu-note svg{width:22px;height:22px;flex:none;color:var(--pine)}
+
+/* salle */
+.salle{position:relative;background:var(--coal);color:var(--on-coal)}
+.salle img{width:100%;height:min(70vh,640px);object-fit:cover}
+.salle .over{position:absolute;inset:auto 0 0 0;background:linear-gradient(180deg,rgba(22,19,15,0),rgba(22,19,15,.9));padding-block:120px 40px}
+.salle .over .wrap{display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:end}
+.salle h2{font-size:clamp(30px,4vw,46px)}
+.salle p{color:var(--on-coal-muted)}
+
+/* histoire */
+.histoire{background:var(--coal-2);color:var(--on-coal)}
+.histoire .wrap{display:grid;grid-template-columns:.9fr 1.1fr;gap:56px}
+.histoire .wrap>*{min-width:0}
+.histoire p{color:var(--on-coal-muted)}
+.numbers{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:12px}
+.numbers div{border:1px solid var(--coal-line);border-radius:var(--r-s);padding:16px}
+.numbers b{display:block;font-family:var(--display);font-size:34px;font-weight:800;color:var(--brass);line-height:1;font-variant-numeric:tabular-nums}
+.numbers span{font-size:13px;color:var(--on-coal-muted)}
+.timeline{list-style:none;margin:0;padding:0;border-left:2px solid var(--coal-line)}
+.timeline li{position:relative;padding:0 0 26px 26px;display:grid;gap:4px}
+.timeline li::before{content:"";position:absolute;left:-8px;top:6px;width:14px;height:14px;border-radius:50%;background:var(--brass);border:3px solid var(--coal-2)}
+.timeline .y{font-family:var(--display);font-weight:800;color:var(--brass);font-size:15px;letter-spacing:.06em}
+.timeline strong{font-family:var(--display);font-size:19px}
+.timeline p{font-size:15.5px}
+
+/* avis */
+.avis .head{display:grid;grid-template-columns:1fr auto;gap:24px;align-items:end;margin-bottom:30px}
+.gscore{display:flex;gap:16px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:var(--r-m);padding:16px 22px}
+.gscore b{font-family:var(--display);font-size:46px;font-weight:800;line-height:1}
+.gscore .stars{color:var(--brass);font-size:18px;letter-spacing:2px}
+.gscore small{display:block;color:var(--muted);font-size:13px}
+.slider{display:grid;grid-auto-flow:column;grid-auto-columns:min(360px,85%);gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;padding:6px 6px 18px;scrollbar-width:thin;margin:0 -6px}
+.rev{scroll-snap-align:start;background:var(--card);border:1px solid var(--line);border-radius:var(--r-m);padding:24px;display:flex;flex-direction:column;gap:12px;min-width:0}
+.rev .stars{color:var(--brass);letter-spacing:2px}
+.rev q{font-size:17px;line-height:1.5;quotes:"« " " »"}
+.rev .who{display:flex;justify-content:space-between;gap:10px;font-size:14px;color:var(--muted);margin-top:auto}
+.rev .who b{color:var(--fg)}
+.rev.ta{border-color:var(--pine);background:var(--pine-soft)}
+.slide-nav{display:flex;gap:8px;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px}
+.slide-nav .arrows{display:flex;gap:8px}
+.slide-nav button{width:44px;height:44px;border-radius:50%;border:1.5px solid var(--line);background:var(--card);color:var(--fg);cursor:pointer;font-size:18px}
+
+/* venir */
+.venir .wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:48px;align-items:start}
+.venir .wrap>*{min-width:0}
+.map{background:var(--card);border:1px solid var(--line);border-radius:var(--r-m);overflow:hidden}
+.map .scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.map svg{width:100%;height:auto;display:block}
+@media (max-width:600px){.map svg{min-width:600px}.map .legend{font-size:12px}.map .legend a{width:100%;margin-left:0}}
+.map .legend{display:flex;flex-wrap:wrap;gap:14px;padding:14px 18px;font-size:13px;color:var(--muted);border-top:1px solid var(--line)}
+.map .legend span{display:inline-flex;align-items:center;gap:6px}
+.map .legend i{width:12px;height:12px;border-radius:50%;display:inline-block}
+.tel{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.tel b{font-family:var(--display);font-size:clamp(30px,4vw,44px);font-weight:800;letter-spacing:.01em;user-select:all}
+.copy{font:600 13px var(--body);padding:8px 12px;border-radius:999px;border:1.5px solid var(--line);background:var(--card);color:var(--fg);cursor:pointer;min-height:36px}
+.hours{width:100%;border-collapse:collapse;font-size:15.5px;font-variant-numeric:tabular-nums}
+.hours td{padding:10px 0;border-bottom:1px solid var(--line)}
+.hours td:last-child{text-align:right;font-weight:600}
+.hours tr.today td{color:var(--brass-deep);font-weight:700}
+.hours .off{color:var(--muted);font-weight:500}
+.services{display:flex;flex-wrap:wrap;gap:8px;list-style:none;padding:0;margin:0}
+.services li{font-size:13px;font-weight:600;border:1px solid var(--line);padding:7px 12px;border-radius:999px;background:var(--card)}
+.now-box{display:flex;align-items:center;gap:12px;padding:14px 18px;border-radius:var(--r-s);background:var(--pine-soft);color:var(--pine);font-weight:600}
+.now-box.closed{background:#f6e3dc;color:#9b3d22}
+:root[data-theme="dark"] .now-box.closed{background:#3a221b;color:#f0a58d}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .now-box.closed{background:#3a221b;color:#f0a58d}}
+.note{font-size:14px;color:var(--muted)}
+
+/* galerie + lightbox */
+.gal{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.gal button{padding:0;border:0;background:none;cursor:pointer;border-radius:var(--r-s);overflow:hidden;aspect-ratio:4/3}
+.gal img{width:100%;height:100%;object-fit:cover;transition:transform .4s}
+.gal button:hover img{transform:scale(1.04)}
+.lb{position:fixed;inset:0;background:rgba(10,8,6,.92);display:none;align-items:center;justify-content:center;z-index:50;padding:24px}
+.lb.open{display:flex}
+.lb img{max-width:min(1200px,100%);max-height:85vh;border-radius:var(--r-s);object-fit:contain}
+.lb button{position:absolute;top:calc(16px + env(safe-area-inset-top,0px));right:calc(16px + env(safe-area-inset-right,0px));width:48px;height:48px;border-radius:50%;border:0;background:var(--brass);color:var(--brass-ink);font-size:22px;cursor:pointer}
+
+footer{background:var(--coal);color:var(--on-coal-muted);padding-block:34px;font-size:14px}
+footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;align-items:center}
+footer a{color:var(--on-coal)}
+
+@media (max-width:880px){
+  .ardoise .wrap,.promesses,.briquet .wrap,.histoire .wrap,.venir .wrap,.salle .over .wrap{grid-template-columns:1fr}
+  #reserver{order:-1}
+  .salle .over{position:static;background:var(--coal);padding-block:28px 48px}
+  .salle img{height:300px}
+  .menu-grid{grid-template-columns:1fr}
+  .gal{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .band{padding-block:60px}
+  .avis .head{grid-template-columns:1fr}
+  .hero .wrap{padding-block:110px 44px}
+  .hero{min-height:0}
+  .numbers{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+@media (max-width:480px){.numbers{grid-template-columns:1fr 1fr}.musette .panel{grid-template-columns:1fr}.board{padding:28px 24px}}
+</style>
+
+<script>document.documentElement.classList.add('js')</script>
+</head><body><script>try{history.scrollRestoration="manual"}catch(e){}(function(){function top(){if(!location.hash)window.scrollTo(0,0)}top();addEventListener("pageshow",top);addEventListener("load",function(){top();setTimeout(top,60);setTimeout(top,400)})})();</script><header>
+  <div class="wrap nav" id="nav">
+    <a class="brand" href="#top">
+      <span class="logo" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 21 12 3l7 18M8 14h8M9.5 9.5h5M4 21h16"/></svg></span>
+      <span>Au Briquet du Chevalet<small>Café · Brasserie · Loos-en-Gohelle</small></span>
+    </a>
+    <ul>
+      <li><a href="#ardoise">L'ardoise</a></li>
+      <li><a href="#carte">La carte</a></li>
+      <li><a href="#briquet">Le briquet</a></li>
+      <li><a href="#avis">Avis</a></li>
+      <li><a href="#venir">Venir</a></li>
+    </ul>
+    <div class="right">
+      <a class="btn btn-brass" href="#reserver" data-reserve>Réserver</a>
+      <button type="button" class="burger" id="burger" aria-label="Menu" aria-expanded="false" aria-controls="nav">
+        <svg class="h" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        <svg class="x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<section class="hero" id="top">
+  <img src="img/facade.jpg" srcset="img/facade-s.jpg 900w, img/facade.jpg 1800w" sizes="100vw" alt="La façade blanche du café-brasserie Au Briquet du Chevalet, ses stores verts et sa terrasse, rue Léon Blum à Loos-en-Gohelle" fetchpriority="high">
+  <div class="wrap hero-in">
+    <div class="chips">
+      <span class="chip" id="open-chip"><span class="dot"></span><span id="open-txt">Ouvert ce midi</span></span>
+      <span class="chip"><span class="star">★</span> 4,6 / 5 · plus de 200 avis Google</span>
+      <span class="chip">Fait maison</span>
+    </div>
+    <h1>La brasserie <span>à la bonne franquette</span> au pied des terrils.</h1>
+    <p class="lead">Une assiette qui cale, une bière du coin bien fraîche, et Sandy qui vous appelle par votre prénom dès la deuxième fois. C'est ça, le Briquet.</p>
+    <div class="cta">
+      <a class="btn btn-brass" href="#ardoise">Voir l'ardoise du jour</a>
+      <a class="btn btn-ghost" href="#reserver" data-reserve><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8.1 9.7a16 16 0 0 0 6 6l1.2-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg> 03 21 28 18 80</a>
+    </div>
+  </div>
+</section>
+
+<section class="ardoise" id="ardoise">
+  <div class="wrap">
+    <div class="board rv" role="img" aria-label="Ardoise du jour : bavette à l'échalote, frites maison, 13 euros">
+      <span class="pin" aria-hidden="true"></span>
+      <div class="t">L'ardoise du jour</div>
+      <div class="dish">Bavette à l'échalote,<br>frites maison &amp; salade</div>
+      <div class="price">13 €</div>
+      <div class="sub">Plat du jour chaque midi, entre 12 et 14 €. Il change tous les jours : on l'annonce le matin sur Facebook. Quand il n'y en a plus, il n'y en a plus.</div>
+    </div>
+    <figure class="dish-photo rv rv-img">
+      <img src="img/bavette.jpg" srcset="img/bavette-s.jpg 900w, img/bavette.jpg 1800w" sizes="(max-width:880px) 100vw, 50vw" alt="Une bavette grillée, des frites maison dorées, de la salade et une sauce maison, avec une bière Ch'ti pression" loading="lazy">
+      <figcaption>La bavette, telle qu'elle arrive à table</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section class="band">
+  <div class="wrap promesses">
+    <div class="stack rv">
+      <div class="eyebrow">Ici, c'est simple</div>
+      <h2>On ne fait pas de chichi. On fait à manger.</h2>
+      <p class="lead">Pas de carte à rallonge ni de dressage à la pince. Des plats du Nord faits le matin même, des portions de mineur et une salle où tout le monde finit par se parler.</p>
+      <div class="plist">
+        <div><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11h18M5 11a7 7 0 0 1 14 0M12 4V2M8 19h8M4 15h16"/></svg></span><div><h3>Fait maison, pour de vrai</h3><p>Carbonade, potjevleesch, lasagnes, frites fraîches : tout est préparé en cuisine, et ça se sent.</p></div></div>
+        <div><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8 12h8M12 8v8"/></svg></span><div><h3>Copieux et pas cher</h3><p>Le plat du jour entre 12 et 14 €, et personne ne repart avec un petit creux. Tickets resto acceptés.</p></div></div>
+        <div><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></span><div><h3>Un accueil qui fait revenir</h3><p>C'est ce qui revient dans presque tous les avis : on est reçu comme chez des amis, pas comme un numéro de table.</p></div></div>
+      </div>
+    </div>
+    <div class="portrait rv rv-img">
+      <img src="img/equipe.jpg" srcset="img/equipe-s.jpg 900w, img/equipe.jpg 1800w" sizes="(max-width:880px) 100vw, 50vw" alt="Sandy et sa collègue, souriantes, devant le bar de la brasserie" loading="lazy">
+      <span class="tag">Sandy &amp; l'équipe</span>
+    </div>
+  </div>
+</section>
+
+<section class="band" id="carte">
+  <div class="wrap rv">
+    <div class="eyebrow">La carte</div>
+    <h2>Courte, de saison, et du Nord jusqu'au bout de la frite.</h2>
+    <div class="menu-tabs" role="tablist" aria-label="Rubriques de la carte">
+      <button role="tab" aria-selected="true" aria-controls="m1" id="t1">Les classiques du Nord</button>
+      <button role="tab" aria-selected="false" aria-controls="m2" id="t2">Viandes &amp; plats</button>
+      <button role="tab" aria-selected="false" aria-controls="m3" id="t3">Salades &amp; planches</button>
+      <button role="tab" aria-selected="false" aria-controls="m4" id="t4">Douceurs &amp; bar</button>
+    </div>
+    <div class="menu-grid" id="m1" role="tabpanel" aria-labelledby="t1">
+      <div class="it"><div><strong>Carbonade flamande</strong><span>Bœuf mijoté longtemps dans la bière brune, une pointe de pain d'épices, frites maison.</span></div></div>
+      <div class="it"><div><strong>Potjevleesch</strong><span>Trois viandes en gelée, servi bien frais avec des frites chaudes. Le contraste, c'est le secret.</span></div></div>
+      <div class="it"><div><strong>Filet de poulet au maroilles</strong><span>Sauce crémeuse au maroilles, frites maison, salade verte. Le plat le plus commandé.</span></div></div>
+      <div class="it"><div><strong>Bœuf bourguignon</strong><span>Celui dont les clients disent que la viande « fond dans la bouche ».</span></div></div>
+      <div class="it"><div><strong>Lasagnes maison</strong><span>Gratinées à la commande, généreuses.</span></div></div>
+      <div class="it"><div><strong>Frites maison</strong><span>Pommes de terre épluchées ici, cuites deux fois. Sur place ou à emporter.</span></div></div>
+    </div>
+    <div class="menu-grid" id="m2" role="tabpanel" aria-labelledby="t2" hidden>
+      <div class="it"><div><strong>Bavette à l'échalote</strong><span>Grillée comme vous l'aimez, échalotes fondues, frites maison.</span></div></div>
+      <div class="it"><div><strong>Côte à l'os</strong><span>Pour les grosses faims ou pour deux, à réserver de préférence.</span></div></div>
+      <div class="it"><div><strong>Filet de poulet gratiné à la scamorza</strong><span>Fromage fumé italien, le petit écart à la carte du Nord.</span></div></div>
+      <div class="it"><div><strong>Filet mignon sauce maison</strong><span>Tendre, nappé, avec son accompagnement du jour.</span></div></div>
+    </div>
+    <div class="menu-grid" id="m3" role="tabpanel" aria-labelledby="t3" hidden>
+      <div class="it"><div><strong>Salade fraîcheur de la mer</strong><span>Grande salade composée, poissons et crevettes.</span></div></div>
+      <div class="it"><div><strong>Salade fraîcheur et cochonailles</strong><span>Charcuteries du coin, croûtons, œuf.</span></div></div>
+      <div class="it"><div><strong>Salade filet mignon</strong><span>Tièdes tranches de filet mignon, sauce maison.</span></div></div>
+      <div class="it"><div><strong>Planche bordelaise</strong><span>À partager à l'apéro, avec une bière de garde.</span></div></div>
+    </div>
+    <div class="menu-grid" id="m4" role="tabpanel" aria-labelledby="t4" hidden>
+      <div class="it"><div><strong>Verrine fruits rouges &amp; financier</strong><span>Le dessert maison qui finit toujours.</span></div></div>
+      <div class="it"><div><strong>Irish coffee</strong><span>Préparé au bar, pour prolonger un peu.</span></div></div>
+      <div class="it"><div><strong>Bières régionales à la pression</strong><span>Ch'ti, bières de garde et brassins des Hauts-de-France.</span></div></div>
+      <div class="it"><div><strong>Café, boissons, apéro</strong><span>Le comptoir est ouvert en dehors du service pour un café ou un demi.</span></div></div>
+    </div>
+    <p class="menu-note"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 8h.01M11 12h1v4h1"/></svg>Les prix sont sur l'ardoise en salle et changent avec le marché. Plat du jour de 12 à 14 €. Plats à emporter possibles.</p>
+  </div>
+</section>
+
+<section class="salle rv-img">
+  <img src="img/salle.jpg" srcset="img/salle-s.jpg 900w, img/salle.jpg 1800w" sizes="100vw" alt="La salle du restaurant : tables en bois, nappes Ch'ti, bar carrelé blanc et étagère décorée de lampes et figurines de mineurs" loading="lazy">
+  <div class="over"><div class="wrap">
+    <h2>Une salle qui raconte la fosse.</h2>
+    <p>Lampes de mineur et figurines au-dessus du bar, affiches des Ch'tis, nappes à carreaux : rien n'est là pour faire décor, tout vient du quartier. Le midi, les tables se remplissent d'habitués, d'ouvriers du coin et de randonneurs qui montent aux terrils.</p>
+  </div></div>
+</section>
+
+<section class="band briquet" id="briquet">
+  <div class="wrap">
+    <div class="stack rv">
+      <div class="eyebrow">D'où vient le nom ?</div>
+      <h2>Le briquet, c'était le casse-croûte du mineur.</h2>
+      <p>Dans le bassin minier, « prendre son briquet » ne voulait pas dire allumer quoi que ce soit. C'était le repas que le mineur glissait dans sa musette avant de descendre à 600 mètres sous terre : des tartines, un bout de fromage ou de lard, un café froid dans la gourde. On le mangeait au fond, assis dans la veine, à la lueur de la lampe.</p>
+      <p>Le <strong>chevalet</strong>, c'est le chevalement : la grande tour de fer plantée au-dessus du puits, qui faisait monter et descendre les cages. Celui de la fosse 11/19 est à quelques minutes à pied d'ici, et il est toujours debout.</p>
+      <p style="font-family:var(--hand);font-size:26px;color:var(--brass-deep)">Ici, le briquet se prend assis, au chaud, et il est servi.</p>
+    </div>
+    <div class="musette rv" style="--d:.15s">
+      <div class="eyebrow" style="margin-bottom:6px">Qu'y avait-il dans la musette ?</div>
+      <div class="tabs" role="tablist" aria-label="Contenu du briquet">
+        <button role="tab" aria-selected="true" data-k="0">Les tartines</button>
+        <button role="tab" aria-selected="false" data-k="1">Le fromage</button>
+        <button role="tab" aria-selected="false" data-k="2">Le café</button>
+        <button role="tab" aria-selected="false" data-k="3">La bière</button>
+      </div>
+      <div class="panel" id="musette-panel" role="tabpanel">
+        <svg viewBox="0 0 72 72" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" id="m-ic"></svg>
+        <div><h3 id="m-h"></h3><p id="m-p"></p><div class="now" id="m-n"></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band histoire dark">
+  <div class="wrap">
+    <div class="stack rv">
+      <div class="eyebrow">Un peu d'histoire</div>
+      <h2>Un ancien estaminet de fosse, à l'ombre des deux plus hauts terrils d'Europe.</h2>
+      <p>Loos-en-Gohelle a vécu près d'un siècle au rythme de la fosse 11/19 de la Compagnie des mines de Lens. Autour du carreau, les estaminets accueillaient les mineurs à la remonte : un verre, une partie de cartes, les nouvelles du quartier. Le Briquet du Chevalet est l'un de ces cafés, et il a gardé le rôle.</p>
+      <div class="numbers">
+        <div><b>186 m</b><span>la hauteur des terrils jumeaux, les plus hauts d'Europe</span></div>
+        <div><b>1986</b><span>dernière remontée de charbon à la fosse 11/19</span></div>
+        <div><b>2012</b><span>le bassin minier entre au patrimoine mondial de l'UNESCO</span></div>
+      </div>
+    </div>
+    <ol class="timeline rv" style="--d:.15s">
+      <li><span class="y">1891</span><strong>Le puits n°11 est foncé</strong><p>La Compagnie des mines de Lens ouvre la fosse qui va faire vivre le village. Les corons et les estaminets poussent autour.</p></li>
+      <li><span class="y">1915</span><strong>La bataille de Loos</strong><p>Le village est entièrement détruit pendant la Grande Guerre. La fosse est reconstruite dans les années 1920.</p></li>
+      <li><span class="y">1960</span><strong>La tour du puits n°19</strong><p>Une tour d'extraction en béton de 66 mètres vient épauler le chevalement métallique du 11. Les deux dominent encore la plaine.</p></li>
+      <li><span class="y">1986</span><strong>La fosse ferme</strong><p>Fin de l'extraction. Les terrils 74 et 74A restent, et deviennent un terrain de balade, de trail et de couchers de soleil.</p></li>
+      <li><span class="y">2012</span><strong>L'UNESCO</strong><p>Le 30 juin, le bassin minier est inscrit au patrimoine mondial. Le site du 11/19 en est l'un des grands lieux de mémoire, et Loos-en-Gohelle une ville pilote de la transition écologique.</p></li>
+    </ol>
+  </div>
+</section>
+
+<section class="band avis" id="avis">
+  <div class="wrap">
+    <div class="head rv">
+      <div class="stack">
+        <div class="eyebrow">Ce qu'on dit du Briquet</div>
+        <h2>Les clients le disent mieux que nous.</h2>
+      </div>
+      <div class="gscore"><b>4,6</b><div><div class="stars" aria-hidden="true">★★★★★</div><small>sur 5 · plus de 200 avis Google</small><small>Tripadvisor : 5 / 5</small></div></div>
+    </div>
+    <div class="slider rv" id="slider" aria-label="Avis clients">
+      <article class="rev"><div class="stars" aria-hidden="true">★★★★★</div><q>Juste PARFAIT ! Un accueil charmant, dynamique, sympathique et bienveillant. Des assiettes copieuses.</q><div class="who"><b>Véronique B.</b><span>Google</span></div></article>
+      <article class="rev"><div class="stars" aria-hidden="true">★★★★★</div><q>Excellent restaurant avec des prix abordables. La viande du bourguignon était fondante dans la bouche.</q><div class="who"><b>Sylvie D.</b><span>Google</span></div></article>
+      <article class="rev"><div class="stars" aria-hidden="true">★★★★★</div><q>Tout était très bien. Accueil très sympathique. Peu de plats mais du coup fraîchement élaborés. Au top.</q><div class="who"><b>Nicole A.</b><span>Google</span></div></article>
+      <article class="rev"><div class="stars" aria-hidden="true">★★★★★</div><q>Un bel accueil, une cuisine délicieuse, une ambiance chaleureuse.</q><div class="who"><b>Papy Fred</b><span>Google</span></div></article>
+      <article class="rev"><div class="stars" aria-hidden="true">★★★★★</div><q>Une découverte sur les conseils d'un collègue. Je ne suis pas déçue.</q><div class="who"><b>Séverine J.</b><span>Google</span></div></article>
+      <article class="rev ta"><div class="stars" aria-hidden="true">★★★★★</div><q>Un bon moment de partage, de simplicité et de vraies valeurs d'accueil.</q><div class="who"><b>Véronique</b><span>Tripadvisor</span></div></article>
+      <article class="rev ta"><div class="stars" aria-hidden="true">★★★★★</div><q>L'équipe est tellement gentille et attentionnée.</q><div class="who"><b>Lucie</b><span>Tripadvisor</span></div></article>
+    </div>
+    <div class="slide-nav">
+      <a href="https://www.google.com/maps/search/Au+Briquet+du+Chevalet+Loos-en-Gohelle">Lire tous les avis sur Google →</a>
+      <div class="arrows"><button type="button" id="prev" aria-label="Avis précédents">‹</button><button type="button" id="next" aria-label="Avis suivants">›</button></div>
+    </div>
+  </div>
+</section>
+
+<section class="band" style="padding-top:0">
+  <div class="wrap">
+    <div class="eyebrow" style="margin-bottom:18px">En images</div>
+    <div class="gal">
+      <button type="button" class="rv" data-full="img/facade.jpg" aria-label="Agrandir : la façade"><img src="img/facade-s.jpg" alt="La façade du restaurant" loading="lazy"></button>
+      <button type="button" class="rv" data-full="img/salle.jpg" aria-label="Agrandir : la salle"><img src="img/salle-s.jpg" alt="La salle et le bar" loading="lazy"></button>
+      <button type="button" class="rv" data-full="img/bavette.jpg" aria-label="Agrandir : la bavette frites"><img src="img/bavette-s.jpg" alt="Bavette, frites maison et bière" loading="lazy"></button>
+      <button type="button" class="rv" data-full="img/equipe.jpg" aria-label="Agrandir : l'équipe"><img src="img/equipe-s.jpg" alt="Sandy et sa collègue" loading="lazy"></button>
+    </div>
+  </div>
+</section>
+
+<section class="band venir" id="venir" style="background:var(--bg-2)">
+  <div class="wrap">
+    <div class="stack">
+      <div class="eyebrow">Venir au Briquet</div>
+      <h2>À 5 minutes de Lens, sortie Loos-en-Gohelle.</h2>
+      <div class="map rv">
+        <div class="scroll"><svg viewBox="0 0 640 440" role="img" aria-label="Plan simplifié : le restaurant rue Léon Blum à Loos-en-Gohelle, la base 11/19 et les terrils jumeaux au sud-est, Lens à 4 km, l'autoroute A21 au sud">
+          <rect width="640" height="440" fill="var(--card)"/>
+          <g fill="none" stroke="var(--line)" stroke-width="1" opacity=".7"><path d="M0 70H640M0 150H640M0 230H640M0 310H640M0 390H640M90 0V440M180 0V440M270 0V440M360 0V440M450 0V440M540 0V440"/></g>
+          <path d="M0 400 C150 392 300 408 450 398 S600 384 640 388" fill="none" stroke="#c9b48c" stroke-width="12" stroke-linecap="round" opacity=".65"/>
+          <text x="18" y="428" font-family="Figtree,sans-serif" font-size="12" font-weight="700" fill="var(--muted)">A21 · sortie Loos-en-Gohelle</text>
+          <path d="M150 0 C148 40 150 80 150 100" fill="none" stroke="var(--line)" stroke-width="7" stroke-linecap="round"/>
+          <text x="162" y="36" font-family="Figtree,sans-serif" font-size="12" fill="var(--muted)">D947 · vers Béthune</text>
+          <path d="M150 100 C260 120 420 130 575 138" fill="none" stroke="var(--line)" stroke-width="7" stroke-linecap="round"/>
+          <text x="330" y="112" font-family="Figtree,sans-serif" font-size="12" fill="var(--muted)">D943 · vers Lens</text>
+          <path d="M60 212 C180 206 300 208 430 232" fill="none" stroke="var(--line)" stroke-width="7" stroke-linecap="round"/>
+          <text x="66" y="200" font-family="Figtree,sans-serif" font-size="12" fill="var(--muted)">rue Léon Blum</text>
+          <path d="M430 232 C455 262 470 290 480 320" fill="none" stroke="var(--line)" stroke-width="5" stroke-linecap="round" stroke-dasharray="2 7"/>
+          <g><ellipse cx="150" cy="100" rx="50" ry="30" fill="var(--pine-soft)"/><text x="150" y="98" text-anchor="middle" font-family="Bricolage Grotesque,sans-serif" font-size="14" font-weight="800" fill="var(--fg)">Loos-en-Gohelle</text><text x="150" y="114" text-anchor="middle" font-family="Figtree,sans-serif" font-size="11" fill="var(--muted)">centre · mairie</text></g>
+          <g transform="translate(575 138)"><circle r="7" fill="var(--muted)"/><text x="0" y="-16" text-anchor="middle" font-family="Bricolage Grotesque,sans-serif" font-size="15" font-weight="800" fill="var(--fg)">Lens</text><text x="-14" y="26" text-anchor="middle" font-family="Figtree,sans-serif" font-size="11" fill="var(--muted)">Louvre-Lens · Bollaert</text><text x="-14" y="41" text-anchor="middle" font-family="Figtree,sans-serif" font-size="11" fill="var(--muted)">≈ 4 km · 8 min</text></g>
+          <g transform="translate(430 232)"><path d="M-8 18 L0 -16 L8 18Z M-6 8H6" fill="none" stroke="var(--fg)" stroke-width="2"/><rect x="12" y="-16" width="7" height="34" fill="var(--fg)"/><text x="30" y="-4" font-family="Bricolage Grotesque,sans-serif" font-size="13" font-weight="800" fill="var(--fg)">Base 11/19</text><text x="30" y="11" font-family="Figtree,sans-serif" font-size="11" fill="var(--muted)">chevalement · tour</text></g>
+          <g transform="translate(490 330)"><path d="M-70 36 L-36 -22 L-2 36Z" fill="#8a7a66"/><path d="M-22 36 L18 -30 L58 36Z" fill="#6f6252"/><text x="-6" y="56" text-anchor="middle" font-family="Bricolage Grotesque,sans-serif" font-size="13" font-weight="800" fill="var(--fg)">Terrils jumeaux</text><text x="-6" y="71" text-anchor="middle" font-family="Figtree,sans-serif" font-size="11" fill="var(--muted)">186 m · 20 min à pied</text></g>
+          <g transform="translate(290 208)"><circle r="22" fill="var(--brass)" opacity=".22"/><path d="M0 -26c-10 0-18 8-18 18 0 14 18 32 18 32s18-18 18-32c0-10-8-18-18-18z" fill="var(--brass)" stroke="var(--brass-ink)" stroke-width="1.5"/><circle cy="-8" r="6" fill="var(--brass-ink)"/><rect x="-78" y="32" width="156" height="42" rx="10" fill="var(--coal)"/><text y="50" text-anchor="middle" font-family="Bricolage Grotesque,sans-serif" font-size="13" font-weight="800" fill="#f3ebdb">Au Briquet du Chevalet</text><text y="65" text-anchor="middle" font-family="Figtree,sans-serif" font-size="11" fill="#b9ad97">144 rue Léon Blum · parking</text></g>
+          <text x="622" y="428" text-anchor="end" font-family="Figtree,sans-serif" font-size="11" fill="var(--muted)">Plan simplifié, pas à l'échelle</text>
+        </svg></div>
+        <div class="legend"><span><i style="background:var(--brass)"></i>Le restaurant</span><span><i style="background:#6f6252"></i>Terrils &amp; site 11/19</span><span><i style="background:#c9b48c"></i>A21</span><a href="https://www.google.com/maps/dir/?api=1&destination=144+rue+L%C3%A9on+Blum+62750+Loos-en-Gohelle" style="margin-left:auto;font-weight:700">Itinéraire Google Maps →</a></div>
+      </div>
+      <p class="note">Parking sur place. Depuis Lens : direction Loos-en-Gohelle par la D943, puis rue Léon Blum. Depuis l'A21 : sortie Loos-en-Gohelle, le restaurant est à 3 minutes.</p>
+    </div>
+    <div class="stack rv" id="reserver">
+      <div class="now-box" id="now-box"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><span id="now-txt">Ouvert ce midi</span></div>
+      <h3>Réserver une table</h3>
+      <div class="tel"><b id="telnum">03 21 28 18 80</b><button type="button" class="copy" id="copybtn">Copier</button></div>
+      <p class="note">Le midi ça se remplit vite, surtout le vendredi : un coup de fil le matin et votre table est gardée. Groupes, repas d'équipe et réceptions dans la salle privative sur demande.</p>
+      <address style="font-style:normal;font-weight:600">144 rue Léon Blum<br>62750 Loos-en-Gohelle</address>
+      <table class="hours" id="hours">
+        <tr data-d="1"><td>Lundi</td><td>11h – 19h</td></tr>
+        <tr data-d="2"><td>Mardi</td><td>11h – 19h</td></tr>
+        <tr data-d="3"><td>Mercredi</td><td>11h – 16h</td></tr>
+        <tr data-d="4"><td>Jeudi</td><td>11h – 19h</td></tr>
+        <tr data-d="5"><td>Vendredi</td><td>11h – 19h</td></tr>
+        <tr data-d="6"><td>Samedi</td><td class="off">Fermé</td></tr>
+        <tr data-d="0"><td>Dimanche</td><td class="off">Fermé</td></tr>
+      </table>
+      <p class="note">Cuisine le midi, bar l'après-midi. Un doute un jour férié ? Un coup de fil.</p>
+      <ul class="services" aria-label="Services">
+        <li>Parking</li><li>Terrasse</li><li>Wi-Fi</li><li>Accès PMR</li><li>Salle privative</li><li>À emporter</li><li>CB &amp; tickets resto</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div><strong style="color:var(--on-coal);font-family:var(--display)">Au Briquet du Chevalet</strong><br>Café-brasserie · 144 rue Léon Blum, 62750 Loos-en-Gohelle · 03 21 28 18 80</div>
+    <div><a href="https://www.facebook.com/p/Au-Briquet-du-Chevalet-100037508120428/">Facebook</a> · <a href="https://www.google.com/maps/search/Au+Briquet+du+Chevalet+Loos-en-Gohelle">Google</a> · Site réalisé par Devanture Web</div>
+  </div>
+</footer>
+
+<div class="bar" aria-label="Actions rapides">
+  <a class="btn btn-brass" href="#reserver" data-reserve><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8.1 9.7a16 16 0 0 0 6 6l1.2-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg>Réserver</a>
+  <a class="btn btn-ghost" href="https://www.google.com/maps/dir/?api=1&destination=144+rue+L%C3%A9on+Blum+62750+Loos-en-Gohelle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11l19-9-9 19-2-8z"/></svg>Itinéraire</a>
+</div>
+
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modal-t">
+  <div class="sheet">
+    <button type="button" class="close" id="modal-close" aria-label="Fermer">×</button>
+    <div class="eyebrow" id="modal-t">Réserver une table</div>
+    <div class="num">03 21 28 18 80</div>
+    <p class="note" id="modal-now"></p>
+    <div class="row">
+      <a class="btn btn-brass" href="tel:+33321281880">Appeler maintenant</a>
+      <button type="button" class="btn btn-ghost" id="modal-copy">Copier le numéro</button>
+    </div>
+    <p class="note">Service le midi, du lundi au vendredi. Un appel le matin suffit, on vous garde la table. Groupes et réceptions sur demande.</p>
+  </div>
+</div>
+
+<div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Photo agrandie"><button type="button" id="lbclose" aria-label="Fermer">×</button><img id="lbimg" src="" alt=""></div>
+
+<script>
+(function(){
+  // Ouvert / fermé maintenant (horaires indicatifs : lun–ven 11h–19h, mer 16h ; samedi-dimanche fermé)
+  var now=new Date(),d=now.getDay(),h=now.getHours()+now.getMinutes()/60;
+  var close={1:19,2:19,3:16,4:19,5:19}[d];
+  var open=close&&h>=11&&h<close;
+  var lunch=open&&h<14.5;
+  var txt=open?(lunch?'Ouvert · service du midi en cours':'Ouvert · bar jusqu’à '+close+'h'):(d>=1&&d<=5&&h<11?'Ouvre à 11h aujourd’hui':(d===5&&h>=19||d===6||d===0?'Fermé le week-end · réouvre lundi 11h':'Fermé · réouvre demain 11h'));
+  ['open-txt','now-txt','modal-now'].forEach(function(id){document.getElementById(id).textContent=txt});
+
+  // Menu mobile
+  var nav=document.getElementById('nav'),bg=document.getElementById('burger');
+  bg.addEventListener('click',function(){var o=nav.classList.toggle('open');bg.setAttribute('aria-expanded',String(o))});
+  nav.querySelectorAll('ul a').forEach(function(a){a.addEventListener('click',function(){nav.classList.remove('open');bg.setAttribute('aria-expanded','false')})});
+
+  // Fiche réservation
+  var md=document.getElementById('modal');
+  function openM(e){if(e)e.preventDefault();md.classList.add('open');document.getElementById('modal-close').focus()}
+  function closeM(){md.classList.remove('open')}
+  document.querySelectorAll('[data-reserve]').forEach(function(a){a.addEventListener('click',openM)});
+  document.getElementById('modal-close').addEventListener('click',closeM);
+  md.addEventListener('click',function(e){if(e.target===md)closeM()});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')closeM()});
+
+  // Apparition au défilement
+  var rv=document.querySelectorAll('.rv,.rv-img');
+  if('IntersectionObserver' in window){
+    var ro=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');ro.unobserve(e.target)}})},{rootMargin:'0px 0px -8% 0px',threshold:.08});
+    rv.forEach(function(el){ro.observe(el)});
+  } else rv.forEach(function(el){el.classList.add('in')});
+  if(!open){document.getElementById('open-chip').classList.add('closed');document.getElementById('now-box').classList.add('closed')}
+  var tr=document.querySelector('#hours tr[data-d="'+d+'"]');if(tr)tr.classList.add('today');
+
+  // Onglets carte
+  var tabs=document.querySelectorAll('.menu-tabs [role=tab]');
+  tabs.forEach(function(t){t.addEventListener('click',function(){
+    tabs.forEach(function(x){x.setAttribute('aria-selected','false');document.getElementById(x.getAttribute('aria-controls')).hidden=true});
+    t.setAttribute('aria-selected','true');document.getElementById(t.getAttribute('aria-controls')).hidden=false;
+  })});
+
+  // Musette
+  var M=[
+    {h:'Les tartines',p:'Du pain de la veille, coupé épais et beurré, parfois avec un peu de lard. Enveloppées dans un torchon pour tenir jusqu’à la pause, vers 10 heures, au fond.',n:'Aujourd’hui : les frites maison ont pris la place du pain.',i:'<rect x="10" y="26" width="52" height="14" rx="4"/><rect x="14" y="40" width="44" height="10" rx="3"/><path d="M18 26c4-10 32-10 36 0"/>'},
+    {h:'Le fromage',p:'Un bout de maroilles ou de vieux Lille, les fromages forts du Nord qui tiennent au corps. C’est celui qui parfumait la musette de toute l’équipe.',n:'Aujourd’hui : le maroilles coule sur le filet de poulet.',i:'<path d="M12 48 36 18l24 30z"/><circle cx="30" cy="40" r="3"/><circle cx="40" cy="34" r="2"/><circle cx="42" cy="44" r="2.5"/>'},
+    {h:'Le café',p:'Froid, sans sucre, dans une gourde en fer-blanc. Pas de thermos à l’époque : au fond, à 30 degrés, le café froid était ce qui désaltérait le mieux.',n:'Aujourd’hui : il est chaud, et il y a l’Irish coffee.',i:'<path d="M16 26h32v16a12 12 0 0 1-12 12h-8a12 12 0 0 1-12-12z"/><path d="M48 30h6a5 5 0 0 1 0 10h-6M24 18c0-3 3-3 3-6M32 18c0-3 3-3 3-6"/>'},
+    {h:'La bière',p:'Jamais au fond : interdite. Mais à la remonte, l’estaminet du carreau servait la bière de garde aux mineurs qui avaient encore le visage noir. C’est de là que vient ce café.',n:'Aujourd’hui : Ch’ti et bières régionales à la pression.',i:'<path d="M20 20h26v34a4 4 0 0 1-4 4H24a4 4 0 0 1-4-4z"/><path d="M46 28h6a5 5 0 0 1 0 10h-6M20 20c2-6 22-6 26 0"/><path d="M28 30v18M36 30v18" opacity=".5"/>'}
+  ];
+  var mt=document.querySelectorAll('.musette [role=tab]');
+  function setM(k){mt.forEach(function(b,i){b.setAttribute('aria-selected',String(i===k))});document.getElementById('m-h').textContent=M[k].h;document.getElementById('m-p').textContent=M[k].p;document.getElementById('m-n').textContent=M[k].n;document.getElementById('m-ic').innerHTML=M[k].i}
+  mt.forEach(function(b){b.addEventListener('click',function(){setM(+b.dataset.k)})});setM(0);
+
+  // Slider avis
+  var s=document.getElementById('slider');
+  document.getElementById('prev').addEventListener('click',function(){s.scrollBy({left:-s.clientWidth*.8,behavior:'smooth'})});
+  document.getElementById('next').addEventListener('click',function(){s.scrollBy({left:s.clientWidth*.8,behavior:'smooth'})});
+
+  // Lightbox
+  var lb=document.getElementById('lb'),li=document.getElementById('lbimg');
+  document.querySelectorAll('.gal button').forEach(function(b){b.addEventListener('click',function(){li.src=b.dataset.full;li.alt=b.querySelector('img').alt;lb.classList.add('open')})});
+  function closeLb(){lb.classList.remove('open');li.src=''}
+  document.getElementById('lbclose').addEventListener('click',closeLb);
+  lb.addEventListener('click',function(e){if(e.target===lb)closeLb()});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape'&&lb.classList.contains('open'))closeLb()});
+
+  // Copier le numéro
+  function copier(cb,sel,label){
+    var n='03 21 28 18 80';
+    function done(){cb.textContent='Copié !';setTimeout(function(){cb.textContent=label},1800)}
+    function fallback(){var r=document.createRange();r.selectNodeContents(document.querySelector(sel));var s=getSelection();s.removeAllRanges();s.addRange(r);cb.textContent='Sélectionné'}
+    if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(n).then(done,fallback)}else fallback();
+  }
+  var cb=document.getElementById('copybtn');cb.addEventListener('click',function(){copier(cb,'#telnum','Copier')});
+  var mc=document.getElementById('modal-copy');mc.addEventListener('click',function(){copier(mc,'#modal .num','Copier le numéro')});
+
+  // Lien actif dans le menu
+  var links=document.querySelectorAll('.nav ul a');
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){links.forEach(function(a){a.classList.toggle('on',a.getAttribute('href')==='#'+e.target.id)})}})},{rootMargin:'-40% 0px -55% 0px'});
+    links.forEach(function(a){var el=document.querySelector(a.getAttribute('href'));if(el)io.observe(el)});
+  }
+})();
+</script>
+</body></html>
