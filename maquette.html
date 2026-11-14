@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Aperçu de votre site · Devanture Web</title>
+<meta name="robots" content="noindex">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&display=swap">
+<style>
+/* Aperçu personnalisé : ?n=Nom&v=Ville&t=type. Le nom s'affiche sur l'enseigne. Couleurs selon le métier (--ink fond sombre, --acc accent). */
+:root{--ink:#0e1420;--acc:#ff6a1f;--acc-ink:#1d0d04;--bg:#ffffff;--bg-2:#f4f4f1;--fg:#15161a;--muted:#5d5f66;--line:#e4e3de;--on:#f6f3ec;--on-m:#bdb8ac;--ok:#1f7a4d;
+--display:"Bricolage Grotesque",system-ui,sans-serif;--body:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;--r-s:10px;--r-m:16px;--r-l:24px}
+@media (prefers-color-scheme:dark){:root{--bg:#121316;--bg-2:#1a1b1f;--fg:#f0eee9;--muted:#a9a69e;--line:#2d2e34;--ok:#5fc78f;color-scheme:dark}}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--fg);font:17px/1.55 var(--body);padding-bottom:calc(76px + env(safe-area-inset-bottom,0px))}
+h1,h2,h3{font-family:var(--display);margin:0;letter-spacing:-.02em;line-height:1.03;text-wrap:balance;font-weight:800}
+h2{font-size:clamp(28px,6vw,44px)}p{margin:0}
+button{font:inherit;color:inherit;cursor:pointer;-webkit-tap-highlight-color:transparent}
+button:active,.btn:active{transform:scale(.97);transition:transform 80ms ease-out}
+:focus-visible{outline:3px solid var(--acc);outline-offset:3px}
+.wrap{max-width:860px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+section{padding-block:56px}
+.k{font-weight:700;font-size:13px;color:var(--acc);margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.k::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--acc)}
+.lead{color:var(--muted);margin-top:10px;max-width:34em}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:50px;padding:12px 22px;border-radius:999px;border:0;font-family:var(--display);font-weight:800;font-size:16px;text-decoration:none}
+.btn-acc{background:var(--acc);color:var(--acc-ink)}
+.btn-ghost{background:transparent;color:inherit;box-shadow:inset 0 0 0 1.5px currentColor}
+.ribbon{position:sticky;top:0;z-index:30;background:rgba(10,10,12,.82);backdrop-filter:blur(18px) saturate(160%);-webkit-backdrop-filter:blur(18px) saturate(160%);color:#fff;font-size:13px;padding:calc(8px + env(safe-area-inset-top,0px)) 0 8px}
+.ribbon .wrap{display:flex;justify-content:space-between;gap:10px;align-items:center}
+.ribbon b{font-weight:700}.ribbon a{color:#fff;font-weight:700;white-space:nowrap}
+.hero{background:var(--ink);color:var(--on);padding-block:36px 0;overflow:hidden;position:relative}
+.hero::before{content:"";position:absolute;inset:0;background:radial-gradient(70% 55% at 80% 10%,color-mix(in srgb,var(--acc) 34%,transparent),transparent 70%)}
+.hero .wrap{position:relative}
+.pill{display:inline-flex;align-items:center;gap:8px;padding:7px 12px;border-radius:999px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.16);font-size:13.5px;font-weight:600}
+.pill i{width:8px;height:8px;border-radius:50%;background:#6fd08c}.pill.closed i{background:#e07a5f}
+.hero h1{font-size:clamp(42px,11vw,84px);margin-top:16px;overflow-wrap:anywhere}
+.hero .sub{color:var(--on-m);font-size:18px;margin-top:12px}
+.hero .cta{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
+.hero .btn-ghost{color:var(--on)}
+.shop{display:block;width:100%;max-width:520px;margin:26px auto 0}
+.awn{transform-box:fill-box;transform-origin:50% 0;animation:awn 1s .35s cubic-bezier(.2,.9,.3,1.15) both}
+@keyframes awn{from{transform:scaleY(0)}to{transform:none}}
+.hi{animation:hi .7s cubic-bezier(.2,.7,.2,1) both;animation-delay:calc(var(--i)*90ms)}
+@keyframes hi{from{opacity:.001;transform:translateY(14px)}to{opacity:1;transform:none}}
+.items{display:grid;gap:10px;margin-top:22px}
+.it{display:grid;grid-template-columns:minmax(0,1fr) auto auto;gap:12px;align-items:center;background:var(--bg-2);border-radius:var(--r-m);padding:14px 16px}
+.it strong{font-family:var(--display);font-size:17px;display:block}
+.it span{font-size:14px;color:var(--muted)}
+.it .pr{font-weight:700;font-variant-numeric:tabular-nums;white-space:nowrap}
+.it .add{width:40px;height:40px;border-radius:50%;border:0;background:var(--acc);color:var(--acc-ink);font-size:20px;line-height:1;font-weight:700}
+.ex{font-size:13px;color:var(--muted);margin-top:12px}
+.card{background:var(--bg-2);border-radius:var(--r-l);padding:22px;display:grid;gap:16px;margin-top:22px}
+.card h3{font-size:14px;color:var(--muted);font-family:var(--body);font-weight:600;letter-spacing:0;margin-bottom:8px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chips button{min-height:44px;padding:9px 16px;border-radius:999px;border:1.5px solid var(--line);background:var(--bg);font-weight:600}
+.chips button[aria-pressed="true"]{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+.total{display:flex;justify-content:space-between;align-items:baseline;border-top:1px solid var(--line);padding-top:14px}
+.total b{font-family:var(--display);font-size:30px;font-variant-numeric:tabular-nums}
+.done{display:none;border-radius:var(--r-m);padding:14px 16px;background:var(--bg);border:1px solid var(--line)}
+.done.show{display:block}.done b{color:var(--ok)}
+.dark{background:var(--ink);color:var(--on)}.dark .lead{color:var(--on-m)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:start}
+.hours{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums;margin-top:16px}
+.hours td{padding:9px 0;border-bottom:1px solid rgba(255,255,255,.12)}.hours td:last-child{text-align:right;font-weight:600}
+.hours tr.today td{color:var(--acc);font-weight:800}
+.sk{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:22px}
+.sk div{border:1.5px dashed var(--line);border-radius:var(--r-m);padding:16px;display:grid;gap:8px}
+.sk .st{color:var(--acc);letter-spacing:2px}
+.sk i{display:block;height:9px;border-radius:5px;background:var(--line)}.sk i:nth-child(3){width:80%}.sk i:nth-child(4){width:55%}
+.final{background:var(--acc);color:var(--acc-ink);text-align:center}
+.final h2{font-size:clamp(30px,7vw,50px)}
+.final p{margin:12px auto 0;max-width:30em;font-weight:500}
+.final .cta{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:22px}
+.final .btn-dark{background:var(--ink);color:#fff}
+.final .tel{font-family:var(--display);font-size:26px;font-weight:800;margin-top:18px;user-select:all}
+.bar{position:fixed;left:0;right:0;bottom:0;z-index:35;display:grid;grid-template-columns:1fr 1fr;gap:10px;background:rgba(10,10,12,.8);backdrop-filter:blur(20px) saturate(160%);-webkit-backdrop-filter:blur(20px) saturate(160%);padding:10px max(16px,env(safe-area-inset-right,0px)) calc(10px + env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px))}
+.bar .btn{min-height:48px;font-size:15px}.bar .btn-ghost{color:#fff}
+.modal{position:fixed;inset:0;z-index:45;display:flex;align-items:flex-end;justify-content:center;background:rgba(0,0,0,.6);padding:12px;opacity:0;visibility:hidden;transition:opacity .25s,visibility 0s .25s}
+.modal.open{opacity:1;visibility:visible;transition:opacity .25s}
+.sheet{width:min(460px,100%);background:var(--bg);border-radius:var(--r-l);padding:26px 22px calc(22px + env(safe-area-inset-bottom,0px));display:grid;gap:12px;transform:translateY(24px);transition:transform .3s cubic-bezier(.2,.7,.2,1)}
+.modal.open .sheet{transform:none}.sheet h3{font-size:22px}.sheet p{color:var(--muted)}
+.rv{opacity:0;transform:translateY(12px);transition:opacity .6s ease,transform .6s cubic-bezier(.2,.7,.2,1)}.rv.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){.rv{opacity:1;transform:none}.hi,.awn{animation:none!important;opacity:1}html{scroll-behavior:auto}}
+@media (prefers-reduced-transparency:reduce){.ribbon,.bar{background:#0a0a0c;backdrop-filter:none}}
+@media (max-width:640px){.grid2,.sk{grid-template-columns:1fr}}
+</style></head><body>
+<div class="ribbon"><div class="wrap"><span>Aperçu créé pour <b id="r-n">votre commerce</b> · contenu d'exemple</span><a href="#oui">Je la veux →</a></div></div>
+
+<section class="hero" style="padding-block:36px 0"><div class="wrap">
+  <span class="pill hi" style="--i:0" id="pill"><i></i><span id="pill-t">Ouvert</span></span>
+  <h1 class="hi" style="--i:1" id="h-n">Votre commerce</h1>
+  <p class="sub hi" style="--i:2" id="h-s"></p>
+  <div class="cta hi" style="--i:3"><a class="btn btn-acc" href="#action" id="h-cta">Réserver</a><a class="btn btn-ghost" id="h-map" href="#" target="_blank" rel="noopener">Itinéraire</a></div>
+  <svg class="shop hi" style="--i:2" viewBox="0 0 520 300" aria-hidden="true">
+    <rect x="40" y="96" width="440" height="204" rx="12" fill="rgba(255,255,255,.07)"/>
+    <rect x="70" y="170" width="150" height="130" rx="8" fill="rgba(0,0,0,.35)" stroke="rgba(255,255,255,.18)" stroke-width="2"/>
+    <rect x="250" y="170" width="90" height="130" rx="8" fill="var(--acc)"/><circle cx="326" cy="238" r="5" fill="var(--acc-ink)"/>
+    <rect x="370" y="170" width="80" height="80" rx="8" fill="rgba(0,0,0,.35)" stroke="rgba(255,255,255,.18)" stroke-width="2"/>
+    <g class="awn"><path d="M24 96h472v22c0 18-17 32-39.3 32s-39.3-14-39.3-32c0 18-17 32-39.4 32s-39.3-14-39.3-32c0 18-17 32-39.4 32S260 136 260 118c0 18-17 32-39.3 32s-39.4-14-39.4-32c0 18-17 32-39.3 32s-39.3-14-39.3-32c0 18-17 32-39.4 32S24 136 24 118z" fill="var(--acc)"/><path d="M102.700 96h78.600v22c0 18-17 32-39.300 32s-39.300-14-39.300-32zM260 96h78.700v22c0 18-17 32-39.400 32S260 136 260 118zM417.400 96h78.600v22c0 18-17 32-39.300 32s-39.300-14-39.300-32z" fill="#fff"/></g>
+    <rect x="60" y="30" width="400" height="62" rx="10" fill="#0b0b0d" stroke="var(--acc)" stroke-width="3"/>
+    <text id="sign" x="260" y="72" text-anchor="middle" font-family="Bricolage Grotesque,system-ui,sans-serif" font-weight="800" font-size="30" fill="#fff">VOTRE COMMERCE</text>
+  </svg>
+</div></section>
+
+<section><div class="wrap">
+  <div class="k" id="l-k">À la carte</div>
+  <h2 id="l-t">Ce que vos clients voient en premier.</h2>
+  <div class="items rv" id="items"></div>
+  <p class="ex">Exemples à remplacer par votre carte, vos prix et vos photos.</p>
+</div></section>
+
+<section id="action" style="background:var(--bg-2)"><div class="wrap">
+  <div class="k" id="a-k">Réservation</div>
+  <h2 id="a-t">Réserver en deux gestes.</h2>
+  <p class="lead">La demande arrive directement sur votre téléphone, par SMS et par email. Plus besoin de décrocher en plein service.</p>
+  <div class="card rv" style="background:var(--bg)">
+    <div id="g1w"><h3 id="g1l"></h3><div class="chips" id="g1"></div></div>
+    <div><h3 id="g2l"></h3><div class="chips" id="g2"></div></div>
+    <div class="total" id="totw" hidden><span id="tot-l">Votre commande</span><b id="tot">0,00 €</b></div>
+    <button class="btn btn-acc" type="button" id="go">Envoyer</button>
+    <p class="done" id="done" role="status"></p>
+  </div>
+</div></section>
+
+<section class="dark"><div class="wrap grid2">
+  <div class="rv"><div class="k">Infos pratiques</div><h2>Ouvert ou fermé ? Le site le sait.</h2><p class="lead">Le badge en haut de page change tout seul selon l'heure. Fini les clients devant une porte close.</p></div>
+  <div class="rv"><table class="hours" id="hours"></table><p class="ex" style="color:var(--on-m)">Horaires d'exemple.</p></div>
+</div></section>
+
+<section><div class="wrap">
+  <div class="k">Avis</div>
+  <h2>Vos meilleurs avis Google, en vitrine.</h2>
+  <p class="lead">Votre note et vos avis réels sont repris ici, là où ils rassurent le plus.</p>
+  <div class="sk rv" aria-hidden="true"><div><span class="st">★★★★★</span><i></i><i></i><i></i></div><div><span class="st">★★★★★</span><i></i><i></i><i></i></div><div><span class="st">★★★★★</span><i></i><i></i><i></i></div></div>
+</div></section>
+
+<section class="final" id="oui"><div class="wrap">
+  <h2>Cet aperçu vous plaît ?</h2>
+  <p>Répondez « oui » : sous 48 h, vous recevez la version complète <b id="f-n">de votre site</b>, avec vos photos, votre carte et vos vrais horaires. C'est gratuit et sans engagement.</p>
+  <div class="cta"><a class="btn btn-dark" id="f-mail" href="mailto:contact.devantureweb@gmail.com">Répondre « oui » par email</a><a class="btn btn-ghost" href="./">Voir d'autres sites et les tarifs</a></div>
+  <div class="tel">06 14 75 13 09</div>
+  <p style="font-size:14px">Louis · Devanture Web · contact.devantureweb@gmail.com</p>
+</div></section>
+
+<div class="bar"><a class="btn btn-acc" href="#action" id="b-cta">Réserver</a><button class="btn btn-ghost" type="button" id="b-call">Appeler</button></div>
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="m-t"><div class="sheet"><h3 id="m-t">Appeler</h3><p id="m-p"></p><button class="btn btn-acc" type="button" id="m-x">Compris</button></div></div>
+
+<script>
+(function(){
+var P=new URLSearchParams(location.search);
+function clean(s,max){return String(s||'').replace(/[<>{}\[\]\\]/g,'').replace(/\s+/g,' ').trim().slice(0,max)}
+var n=clean(P.get('n'),60)||'Votre commerce',v=clean(P.get('v'),40),t=clean(P.get('t'),20).toLowerCase();
+var AL={restaurant:'resto',bistrot:'resto',brasserie:'brasserie',cafe:'bar',pub:'bar',snack:'friterie',crêperie:'creperie',boulanger:'boulangerie',patisserie:'boulangerie',pâtisserie:'boulangerie',coiffure:'coiffeur',salon:'coiffeur',barber:'barbier',beaute:'institut',beauté:'institut',fleurs:'fleuriste',garagiste:'garage',plombier:'artisan',electricien:'artisan',boutique:'commerce',magasin:'commerce'};
+t=AL[t]||t;
+var slotsT=['12h00','12h30','13h00','19h30','20h00','20h30'],slotsR=['Aujourd’hui 17h','Demain 10h','Demain 14h30','Samedi 9h'],slotsC=['Dans 20 min','12h00','17h30','18h30'],slotsD=['Ce midi','Ce soir','Demain matin'];
+var H={midi:{d:[2,3,4,5,6],txt:'12h – 14h · 19h – 22h',r:[[12,14],[19,22]]},jour:{d:[2,3,4,5,6],txt:'9h – 19h',r:[[9,19]]},tot:{d:[2,3,4,5,6,0],txt:'6h30 – 19h30',r:[[6.5,19.5]]},sem:{d:[1,2,3,4,5],txt:'8h – 18h',r:[[8,18]]},soir:{d:[2,3,4,5,6],txt:'17h – 1h',r:[[17,24],[0,1]]}};
+var C={
+resto:{ink:'#16130f',acc:'#d9a441',lab:'Restaurant',sub:'Cuisine maison, produits frais',cta:'Réserver une table',k:'À l’ardoise',lt:'L’ardoise de la semaine, toujours à jour.',m:'resa',h:'midi',it:[['Plat du jour','Change chaque midi','13,50 €'],['Entrée + plat','ou plat + dessert','17,00 €'],['Menu complet','Entrée, plat, dessert','21,00 €'],['Dessert maison','Fait le matin même','6,00 €']]},
+brasserie:{ink:'#14231c',acc:'#e3b04b',lab:'Brasserie',sub:'Plats généreux et bières bien fraîches',cta:'Réserver une table',k:'À l’ardoise',lt:'Vos classiques, mis en appétit.',m:'resa',h:'midi',it:[['Welsh au cheddar','Frites maison','14,50 €'],['Carbonade flamande','Mijotée à la bière brune','15,00 €'],['Burger maison','Bœuf, cheddar, oignons confits','14,00 €'],['Café gourmand','Trois douceurs','7,50 €']]},
+bar:{ink:'#17142a',acc:'#ff8a5c',lab:'Bar',sub:'Le rendez-vous du quartier',cta:'Réserver une table',k:'À la carte',lt:'Votre carte et vos soirées, d’un coup d’œil.',m:'resa',h:'soir',it:[['Bière pression','25 cl, sélection du moment','3,50 €'],['Planche à partager','Charcuterie et fromages','14,00 €'],['Cocktail maison','La création du mois','8,00 €'],['Soirée du vendredi','Concert ou blind test','Entrée libre']]},
+friterie:{ink:'#2a1708',acc:'#ffc533',lab:'Friterie',sub:'Frites fraîches, cuites à la commande',cta:'Commander à emporter',k:'La carte',lt:'Commandé en ligne, prêt quand vous arrivez.',m:'cart',h:'midi',it:[['Frite moyenne','Pommes de terre fraîches',3],['Américain fricadelle','Sauce au choix',7.5],['Burger maison','Steak frais, cheddar',8],['Menu enfant','Frite, nuggets, boisson',6]]},
+pizzeria:{ink:'#2a100c',acc:'#ff6a3d',lab:'Pizzeria',sub:'Pâte maison, cuisson au four',cta:'Commander à emporter',k:'La carte',lt:'Commandé en ligne, prêt quand vous arrivez.',m:'cart',h:'midi',it:[['Margherita','Tomate, mozzarella, basilic',9],['Reine','Jambon, champignons',11],['Quatre fromages','Avec ou sans miel',12],['Pizza du moment','La création du chef',13]]},
+creperie:{ink:'#1b2233',acc:'#f2b84b',lab:'Crêperie',sub:'Galettes de sarrasin et crêpes maison',cta:'Réserver une table',k:'À la carte',lt:'Vos galettes donnent faim avant même d’entrer.',m:'resa',h:'midi',it:[['Galette complète','Jambon, œuf, emmental','9,00 €'],['Galette du moment','Selon le marché','12,00 €'],['Crêpe caramel beurre salé','Caramel maison','5,00 €'],['Bolée de cidre','Brut ou doux','3,50 €']]},
+boulangerie:{ink:'#4a260e',acc:'#e9ad4c',lab:'Boulangerie',sub:'Pain frais, trois fournées par jour',cta:'Commander à retirer',k:'La vitrine',lt:'Commandé le matin, mis de côté pour vos clients.',m:'cart',h:'tot',it:[['Baguette tradition','Farine Label Rouge',1.3],['Croissant pur beurre','Feuilleté maison',1.25],['Pain au levain','800 g, pousse lente',4.6],['Tarte au sucre','6 parts',9.8]]},
+coiffeur:{ink:'#101418',acc:'#dcb873',lab:'Salon de coiffure',sub:'Avec ou sans rendez-vous',cta:'Prendre rendez-vous',k:'Les prestations',lt:'Vos tarifs clairs, vos créneaux en ligne.',m:'rdv',h:'jour',it:[['Coupe femme','Shampoing, coupe, brushing','32 €'],['Coupe homme','Shampoing, coupe','19 €'],['Couleur','Sur cheveux courts','45 €'],['Brushing','Toutes longueurs','22 €']]},
+barbier:{ink:'#12100e',acc:'#c89b5a',lab:'Barbier',sub:'Coupe et barbe, à l’ancienne',cta:'Prendre rendez-vous',k:'Les prestations',lt:'Vos tarifs clairs, vos créneaux en ligne.',m:'rdv',h:'jour',it:[['Coupe','Dégradé ou classique','19 €'],['Barbe','Taille et contours','14 €'],['Coupe + barbe','Le duo','29 €'],['Coupe enfant','Moins de 12 ans','14 €']]},
+institut:{ink:'#2b1a24',acc:'#f0a3b8',lab:'Institut de beauté',sub:'Soins, épilations, onglerie',cta:'Prendre rendez-vous',k:'Les soins',lt:'Vos soins et vos créneaux, réservables en ligne.',m:'rdv',h:'jour',it:[['Soin du visage','1 heure','49 €'],['Épilation jambes','Cire tiède','24 €'],['Manucure','Pose semi-permanente','28 €'],['Modelage','Dos et nuque, 45 min','55 €']]},
+fleuriste:{ink:'#14271e',acc:'#f58fa8',lab:'Fleuriste',sub:'Bouquets de saison, faits sur place',cta:'Commander un bouquet',k:'La boutique',lt:'Vos bouquets, commandés même la boutique fermée.',m:'cart',h:'jour',it:[['Bouquet de saison','Le choix du fleuriste',25],['Bouquet généreux','Pour une grande occasion',40],['Plante d’intérieur','Avec cache-pot',18],['Carte message','Écrite à la main',2]]},
+garage:{ink:'#0f1720',acc:'#ffb020',lab:'Garage',sub:'Entretien et réparation toutes marques',cta:'Demander un devis',k:'Les services',lt:'Vos prestations claires, le devis en un geste.',m:'devis',h:'sem',it:[['Révision','Toutes marques','dès 89 €'],['Vidange','Huile et filtre','dès 59 €'],['Freinage','Plaquettes avant','dès 119 €'],['Diagnostic','Valise électronique','39 €']]},
+artisan:{ink:'#161c28',acc:'#62b5ff',lab:'Artisan',sub:'Devis gratuit, travail soigné',cta:'Demander un devis',k:'Les services',lt:'Vos chantiers en photos, le devis en un geste.',m:'devis',h:'sem',it:[['Dépannage','Intervention rapide','sur devis'],['Rénovation','Du diagnostic à la finition','sur devis'],['Installation neuve','Conseil et pose','sur devis'],['Entretien','Contrat annuel','sur devis']]},
+commerce:{ink:'#0e1420',acc:'#ff6a1f',lab:'Commerce',sub:'Votre boutique, ouverte même la nuit',cta:'Réserver un article',k:'La boutique',lt:'Vos produits mis de côté en un geste.',m:'cart',h:'jour',it:[['Nouveauté du mois','Arrivage récent',19],['Meilleure vente','Le produit préféré',24],['Coffret','Idée cadeau',35],['Carte cadeau','Montant libre',20]]}
+};
+var c=C[t]||C.commerce,root=document.documentElement.style;
+root.setProperty('--ink',c.ink);root.setProperty('--acc',c.acc);
+function $(i){return document.getElementById(i)}
+function eur(x){return x.toFixed(2).replace('.',',')+' €'}
+document.title=n+' · aperçu du site';
+$('r-n').textContent=n;$('h-n').textContent=n;if(n!=='Votre commerce')$('f-n').textContent='du site de '+n;
+$('h-s').textContent=c.lab+(v?' à '+v:'')+' · '+c.sub;
+var S=$('sign'),up=n.toUpperCase();S.textContent=up;S.setAttribute('font-size',Math.max(13,Math.min(32,Math.round(560/Math.max(up.length,8)))));
+$('h-cta').textContent=c.cta;$('b-cta').textContent={resa:'Réserver',cart:'Commander',rdv:'Rendez-vous',devis:'Devis'}[c.m];
+$('h-map').href='https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(n+' '+v);
+$('l-k').textContent=c.k;$('l-t').textContent=c.lt;
+$('f-mail').href='mailto:contact.devantureweb@gmail.com?subject='+encodeURIComponent('Oui pour le site de '+n)+'&body='+encodeURIComponent('Bonjour Louis,\n\nL’aperçu me plaît, envoyez-moi la version complète.\n\n'+n+(v?' ('+v+')':''));
+// horaires
+var h=H[c.h],now=new Date(),d=now.getDay(),hr=now.getHours()+now.getMinutes()/60,J=['Dimanche','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi'];
+var open=h.d.indexOf(d)>-1&&h.r.some(function(r){return hr>=r[0]&&hr<r[1]});
+$('pill-t').textContent=open?'Ouvert maintenant':'Fermé pour le moment';if(!open)$('pill').classList.add('closed');
+$('hours').innerHTML=[1,2,3,4,5,6,0].map(function(k){return '<tr'+(k===d?' class="today"':'')+'><td>'+J[k]+'</td><td>'+(h.d.indexOf(k)>-1?h.txt:'Fermé')+'</td></tr>'}).join('');
+// liste
+var q={},list=$('items');
+c.it.forEach(function(x,i){var e=document.createElement('div');e.className='it';var a=document.createElement('div'),s=document.createElement('strong'),sp=document.createElement('span');s.textContent=x[0];sp.textContent=x[1];a.appendChild(s);a.appendChild(sp);e.appendChild(a);
+ var p=document.createElement('span');p.className='pr';p.textContent=typeof x[2]==='number'?eur(x[2]):x[2];e.appendChild(p);
+ if(c.m==='cart'){var b=document.createElement('button');b.type='button';b.className='add';b.textContent='+';b.setAttribute('aria-label','Ajouter '+x[0]);b.onclick=function(){q[i]=(q[i]||0)+1;tot();$('action').scrollIntoView({block:'center'})};e.appendChild(b)}else{e.style.gridTemplateColumns='minmax(0,1fr) auto'}
+ list.appendChild(e)});
+function chips(el,arr,sel){el.innerHTML='';arr.forEach(function(x,i){var b=document.createElement('button');b.type='button';b.textContent=x;b.setAttribute('aria-pressed',String(i===sel));b.onclick=function(){el.querySelectorAll('button').forEach(function(o){o.setAttribute('aria-pressed','false')});b.setAttribute('aria-pressed','true')};el.appendChild(b)})}
+function pick(el){var b=el.querySelector('[aria-pressed=true]');return b?b.textContent:''}
+function tot(){var s=0,k=0;for(var i in q){s+=q[i]*c.it[i][2];k+=q[i]}$('tot').textContent=eur(s);$('tot-l').textContent=k+' article'+(k>1?'s':'')}
+var M={resa:['Réservation','Réserver en deux gestes.','Pour combien de personnes ?',['2','3','4','5','6 et plus'],'À quelle heure ?',slotsT,'Demander cette table'],
+rdv:['Rendez-vous','Un rendez-vous pris en 10 secondes.','Quelle prestation ?',c.it.map(function(x){return x[0]}),'Quel créneau ?',slotsR,'Demander ce rendez-vous'],
+devis:['Devis','Un devis demandé en 10 secondes.','Quel besoin ?',c.it.map(function(x){return x[0]}),'Quand vous rappeler ?',slotsD,'Être rappelé'],
+cart:['Commande','Commander sans faire la queue.','',[], 'Retrait à quelle heure ?',slotsC,'Réserver ma commande']}[c.m];
+$('a-k').textContent=M[0];$('a-t').textContent=M[1];$('g1l').textContent=M[2];$('g2l').textContent=M[4];$('go').textContent=M[6];
+if(c.m==='cart'){$('g1w').hidden=true;$('totw').hidden=false;tot()}else chips($('g1'),M[3],0);
+chips($('g2'),M[5],0);
+$('go').onclick=function(){var o=$('done'),a=c.m==='cart'?$('tot-l').textContent+' · '+$('tot').textContent:pick($('g1'))+(c.m==='resa'?' personnes':'');
+ if(c.m==='cart'&&!Object.keys(q).length){o.textContent='Ajoutez un article avec le bouton + juste au-dessus.';o.classList.add('show');return}
+ o.innerHTML='<b>Demande envoyée (démonstration).</b> ';o.appendChild(document.createTextNode(a+' · '+pick($('g2'))+'. Sur votre vrai site, elle arrive sur votre téléphone par SMS et par email.'));o.classList.add('show')};
+// appeler
+var md=$('modal');$('b-call').onclick=function(){$('m-p').textContent='Sur votre vrai site, ce bouton appelle directement '+n+'. C’est le geste le plus utilisé par les clients sur téléphone.';md.classList.add('open');$('m-x').focus()};
+$('m-x').onclick=function(){md.classList.remove('open')};md.addEventListener('click',function(e){if(e.target===md)md.classList.remove('open')});
+document.addEventListener('keydown',function(e){if(e.key==='Escape')md.classList.remove('open')});
+var io='IntersectionObserver' in window?new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.1}):null;
+document.querySelectorAll('.rv').forEach(function(e){io?io.observe(e):e.classList.add('in')});
+})();
+</script>
+</body></html>
