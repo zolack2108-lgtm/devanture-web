@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Mes demandes · exemple d'application</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&display=swap">
+<style>
+/* Layout : une colonne mobile, compteurs en haut, filtres, cartes de demandes avec actions rapides. Nuit bleue + orange Devanture. */
+:root{--bg:#f4f5f8;--card:#ffffff;--fg:#0f1623;--muted:#5a6475;--line:#e3e6ec;--night:#0e1420;--on-night:#f5f7fb;--on-night-muted:#aab3c4;--tang:#ff6a1f;--tang-deep:#d9521a;--mint:#23c79a;--mint-ink:#06281e;--blue:#3b82f6;--red:#e5484d;
+--display:"Bricolage Grotesque",system-ui,sans-serif;--body:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;--r-s:10px;--r-m:16px;--r-l:24px}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0e1420;--card:#172033;--fg:#f0f3f8;--muted:#a6afbf;--line:#273145;--tang-deep:#ff8a4d;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0e1420;--card:#172033;--fg:#f0f3f8;--muted:#a6afbf;--line:#273145;--tang-deep:#ff8a4d;color-scheme:dark}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.5 var(--body)}
+h1,h2,h3{font-family:var(--display);margin:0;letter-spacing:-.02em;line-height:1.05}
+p{margin:0}a{color:var(--tang-deep)}
+button,select,textarea{font:inherit;color:inherit}button{cursor:pointer;-webkit-tap-highlight-color:transparent}button:active{transform:scale(.97)}
+:focus-visible{outline:3px solid var(--tang);outline-offset:2px}
+.wrap{max-width:860px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+header{background:var(--night);color:var(--on-night);padding-block:22px 26px}
+header .wrap{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:10px;font-family:var(--display);font-weight:800;font-size:18px}
+.brand svg{width:32px;height:32px}
+.brand small{display:block;font:500 12px var(--body);color:var(--on-night-muted)}
+.sync{font-size:12px;color:var(--on-night-muted);display:flex;align-items:center;gap:6px}
+.sync i{width:8px;height:8px;border-radius:50%;background:var(--mint)}
+.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-top:-18px;position:relative}
+.stat{background:var(--card);border:1px solid var(--line);border-radius:var(--r-m);padding:14px;text-align:center;cursor:pointer;transition:transform .15s,border-color .15s}
+.stat[aria-pressed="true"]{border-color:var(--tang);box-shadow:inset 0 0 0 1px var(--tang)}
+.stat b{display:block;font-family:var(--display);font-size:28px;line-height:1;font-variant-numeric:tabular-nums}
+.stat span{font-size:12px;color:var(--muted)}
+.bar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:20px 0 14px}
+.bar input{flex:1;min-width:160px;min-height:44px;border:1.5px solid var(--line);border-radius:999px;padding:0 16px;background:var(--card);color:inherit;font:inherit}
+.bar button{min-height:44px;padding:0 16px;border-radius:999px;border:1.5px solid var(--line);background:var(--card);font-weight:600}
+.bar button[aria-pressed="true"]{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+.list{display:grid;gap:12px;padding-bottom:40px}
+.lead{background:var(--card);border:1px solid var(--line);border-radius:var(--r-l);padding:18px;display:grid;gap:12px;border-left:5px solid var(--tang)}
+.lead[data-s="contacte"]{border-left-color:var(--blue)}.lead[data-s="rdv"]{border-left-color:#a855f7}.lead[data-s="client"]{border-left-color:var(--mint)}.lead[data-s="perdu"]{border-left-color:var(--line);opacity:.7}
+.lead .top{display:flex;justify-content:space-between;gap:10px;align-items:start;flex-wrap:wrap}
+.lead h3{font-size:19px}
+.lead .meta{font-size:13px;color:var(--muted)}
+.chip{font-size:12px;font-weight:700;padding:4px 10px;border-radius:999px;background:var(--tang);color:#fff;white-space:nowrap}
+.lead[data-s="contacte"] .chip{background:var(--blue)}.lead[data-s="rdv"] .chip{background:#a855f7}.lead[data-s="client"] .chip{background:var(--mint);color:var(--mint-ink)}.lead[data-s="perdu"] .chip{background:var(--line);color:var(--muted)}
+.msg{background:var(--bg);border-radius:var(--r-s);padding:12px 14px;font-size:15px;white-space:pre-wrap;max-height:9em;overflow:hidden;position:relative}
+.msg.open{max-height:none}
+.msg .more{position:absolute;inset:auto 0 0 0;height:3em;background:linear-gradient(transparent,var(--bg));display:flex;align-items:end;justify-content:center}
+.msg.open .more{display:none}
+.msg .more button{border:0;background:var(--card);border-radius:999px;padding:4px 12px;font-size:13px;font-weight:600;border:1px solid var(--line)}
+.contact{display:flex;flex-wrap:wrap;gap:8px}
+.contact a,.contact button{display:inline-flex;align-items:center;gap:6px;min-height:40px;padding:8px 14px;border-radius:999px;text-decoration:none;font-weight:700;font-size:14px;border:1.5px solid var(--line);background:var(--card);color:var(--fg)}
+.contact a.main{background:var(--tang);border-color:var(--tang);color:#fff}
+.contact svg{width:16px;height:16px}
+.row{display:flex;gap:8px;align-items:center;flex-wrap:wrap;font-size:13px;color:var(--muted)}
+.row select{min-height:40px;border-radius:var(--r-s);border:1.5px solid var(--line);background:var(--card);padding:0 10px}
+.row textarea{flex:1;min-width:180px;min-height:40px;border-radius:var(--r-s);border:1.5px solid var(--line);background:var(--card);padding:8px 10px;resize:vertical}
+.empty{text-align:center;padding:60px 20px;color:var(--muted)}
+.empty b{display:block;font-family:var(--display);font-size:22px;color:var(--fg);margin-bottom:8px}
+.note{font-size:12px;color:var(--muted);text-align:center;padding:10px 0 calc(24px + env(safe-area-inset-bottom,0px))}
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%) translateY(20px);background:var(--fg);color:var(--bg);padding:10px 16px;border-radius:999px;font-weight:600;opacity:0;transition:.25s;pointer-events:none;z-index:9}
+.toast.show{opacity:1;transform:translateX(-50%)}
+@media (max-width:520px){.stats{grid-template-columns:repeat(2,minmax(0,1fr))}}
+</style>
+</head><body>
+<div style="background:#ff6a1f;color:#fff;font:600 13px system-ui;padding:8px 16px;display:flex;justify-content:space-between;gap:10px;align-items:center"><span>Exemple d'application créée par Devanture Web</span><a href="./#applications" style="color:#fff;font-weight:800;white-space:nowrap">← Retour</a></div>
+<header><div class="wrap">
+  <div class="brand"><svg viewBox="0 0 40 40" aria-hidden="true"><path d="M4 16h32v4c0 3-2.7 5-5.3 5S25.3 23 25.3 20c0 3-2.4 5-5.3 5s-5.3-2-5.3-5c0 3-2.7 5-5.3 5S4 23 4 20z" fill="#ff6a1f"/><path d="M9.3 16h5.4v4c0 3-2.4 5-5.3 5V16zM20 16h5.3v4c0 3-2.4 5-5.3 5V16z" fill="#fff"/><rect x="14" y="26" width="12" height="10" rx="2" fill="#ff6a1f"/><path d="M6 16 10 6h20l4 10" fill="none" stroke="#fff" stroke-width="2.5" stroke-linejoin="round"/></svg><div>Mes demandes<small>Exemple d'application · données fictives</small></div></div>
+  <div class="sync"><i></i><span id="sync">Boîte mail lue automatiquement</span></div>
+</div></header>
+<main class="wrap">
+  <div class="stats" id="stats"></div>
+  <div class="bar"><input id="q" type="search" placeholder="Rechercher un commerce, une ville, un numéro…" aria-label="Rechercher"><button type="button" data-f="all" aria-pressed="true">Tout</button><button type="button" data-f="actif" aria-pressed="false">À traiter</button></div>
+  <div class="list" id="list"><div class="empty" id="loading"><b>Chargement…</b>Connexion au carnet de demandes.</div></div>
+  <p class="note">Les demandes arrivent ici automatiquement depuis votre boîte mail. Changez un statut ou ajoutez une note pour essayer.</p>
+</main>
+<div class="toast" id="toast"></div>
+<script>
+(function(){
+var S={nouveau:'Nouveau',contacte:'Contacté',rdv:'Rendez-vous',client:'Client',perdu:'Perdu'};
+var leads=[],filter='all',stat='',q='',db=null,canWrite=true,unsub=null,timer=null;
+var list=document.getElementById('list'),toast=document.getElementById('toast');
+function say(t){toast.textContent=t;toast.classList.add('show');clearTimeout(say.t);say.t=setTimeout(function(){toast.classList.remove('show')},1800)}
+function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+function fdate(s){try{var d=new Date(s);if(isNaN(d))return esc(s);return d.toLocaleDateString('fr-FR',{weekday:'short',day:'numeric',month:'short'})+' · '+d.toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'})}catch(e){return esc(s)}}
+function telHref(t){return 'tel:'+String(t||'').replace(/[^\d+]/g,'')}
+function render(){
+  var c={};Object.keys(S).forEach(function(k){c[k]=0});leads.forEach(function(l){c[l.statut||'nouveau']=(c[l.statut||'nouveau']||0)+1});
+  document.getElementById('stats').innerHTML=['nouveau','contacte','rdv','client'].map(function(k){return '<button type="button" class="stat" data-k="'+k+'" aria-pressed="'+(stat===k)+'"><b>'+c[k]+'</b><span>'+S[k]+'</span></button>'}).join('');
+  var ql=q.toLowerCase();
+  var rows=leads.filter(function(l){var s=l.statut||'nouveau';if(stat&&s!==stat)return false;if(filter==='actif'&&(s==='client'||s==='perdu'))return false;if(ql&&(JSON.stringify(l).toLowerCase().indexOf(ql)<0))return false;return true});
+  rows.sort(function(a,b){return String(b.date||'').localeCompare(String(a.date||''))});
+  if(!rows.length){list.innerHTML='<div class="empty"><b>'+(leads.length?'Rien dans cette vue':'Aucune demande pour l’instant')+'</b>'+(leads.length?'Changez de filtre.':'Dès qu’un commerçant répond ou vous écrit, sa demande apparaît ici avec ses coordonnées.')+'</div>';return}
+  list.innerHTML=rows.map(function(l){var s=l.statut||'nouveau';return '<article class="lead" data-s="'+esc(s)+'" data-id="'+esc(l.id)+'">'
+   +'<div class="top"><div><h3>'+esc(l.commerce||l.nom||'Sans nom')+'</h3><div class="meta">'+esc(l.nom||'')+(l.ville?' · '+esc(l.ville):'')+' · '+fdate(l.date)+(l.sujet?' · <em>'+esc(l.sujet)+'</em>':'')+'</div></div><span class="chip">'+S[s]+'</span></div>'
+   +(l.message?'<div class="msg">'+esc(l.message)+'<div class="more"><button type="button" data-more>Lire la suite</button></div></div>':'')
+   +'<div class="contact">'+(l.tel?'<a class="main" href="'+telHref(l.tel)+'"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8.1 9.7a16 16 0 0 0 6 6l1.2-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg>'+esc(l.tel)+'</a>':'')
+   +(l.email?'<button type="button" data-copy="'+esc(l.email)+'"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>'+esc(l.email)+'</button>':'')
+   +(l.lien?'<a href="'+esc(l.lien)+'">Ouvrir le mail →</a>':'')+'</div>'
+   +'<div class="row"><label>Statut <select data-status>'+Object.keys(S).map(function(k){return '<option value="'+k+'"'+(k===s?' selected':'')+'>'+S[k]+'</option>'}).join('')+'</select></label><textarea data-note placeholder="Note (rappeler jeudi, veut la formule Sérénité…)">'+esc(l.note||'')+'</textarea></div>'
+   +'</article>'}).join('');
+  if(!canWrite)list.querySelectorAll('select,textarea').forEach(function(e){e.disabled=true});
+}
+document.getElementById('stats').addEventListener('click',function(e){var b=e.target.closest('.stat');if(!b)return;stat=stat===b.dataset.k?'':b.dataset.k;render()});
+document.querySelectorAll('.bar button').forEach(function(b){b.onclick=function(){filter=b.dataset.f;document.querySelectorAll('.bar button').forEach(function(x){x.setAttribute('aria-pressed',String(x===b))});render()}});
+document.getElementById('q').addEventListener('input',function(e){q=e.target.value;render()});
+list.addEventListener('click',function(e){var m=e.target.closest('[data-more]');if(m){m.closest('.msg').classList.add('open');return}
+  var c=e.target.closest('[data-copy]');if(c){var t=c.dataset.copy;try{navigator.clipboard.writeText(t).then(function(){say('Email copié')},function(){say(t)})}catch(x){say(t)}}});
+function save(id,patch){var l=leads.filter(function(x){return x.id===id})[0];if(!l)return;Object.assign(l,patch);render();say('Enregistré')}
+list.addEventListener('change',function(e){var a=e.target.closest('article');if(!a)return;if(e.target.matches('[data-status]'))save(a.dataset.id,{statut:e.target.value})});
+list.addEventListener('input',function(e){if(!e.target.matches('[data-note]'))return;var a=e.target.closest('article');clearTimeout(timer);timer=setTimeout(function(){save(a.dataset.id,{note:e.target.value})},700)});
+render();
+function ago(h){return new Date(Date.now()-h*36e5).toISOString()}
+leads=[
+{id:'a1',commerce:'Camille R.',nom:'Réservation de groupe',ville:'Lens',tel:'06 00 00 00 01',email:'camille.r@exemple.fr',date:ago(1),statut:'nouveau',message:'Bonjour, nous serions 12 samedi soir pour un anniversaire. Avez-vous de la place vers 20h ? Est-il possible d\u2019apporter un gâteau ?\nMerci d\u2019avance, Camille'},
+{id:'a2',commerce:'Julien M.',nom:'Réservation',ville:'Liévin',tel:'06 00 00 00 02',email:'julien.m@exemple.fr',date:ago(3),statut:'nouveau',message:'Bonsoir, une table pour 2 ce soir à 20h, c\u2019est possible ? En terrasse si le temps le permet.'},
+{id:'a3',commerce:'Entreprise Dubois',nom:'Demande de devis',ville:'Arras',tel:'03 00 00 00 03',email:'contact@dubois-exemple.fr',date:ago(22),statut:'contacte',note:'Rappeler jeudi matin, budget 25 € par personne',message:'Bonjour, nous organisons un repas d\u2019équipe pour 40 personnes le 12 décembre. Pouvez-vous nous envoyer une proposition de menu avec les prix ?'},
+{id:'a4',commerce:'Mairie de la commune',nom:'Commande',ville:'Avion',tel:'03 00 00 00 04',email:'accueil@mairie-exemple.fr',date:ago(30),statut:'rdv',note:'RDV vendredi 10h pour valider',message:'Bonjour, nous souhaitons commander un buffet pour la cérémonie des vœux, environ 60 personnes.'},
+{id:'a5',commerce:'Sophie L.',nom:'Message',ville:'Lens',tel:'06 00 00 00 05',email:'sophie.l@exemple.fr',date:ago(50),statut:'client',message:'Merci pour la soirée d\u2019hier, tout était parfait. On revient le mois prochain avec toute la famille !'}
+];render();document.getElementById('sync').textContent=leads.length+' demandes · mise à jour automatique';
+})();
+</script>
+</body></html>

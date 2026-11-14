@@ -132,12 +132,24 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
 @media (prefers-reduced-motion:reduce){.rv{opacity:1;transform:none}.hi,.awn,.ph,.ph-in,.ping,.mq div{animation:none!important;opacity:1}}
 @media (max-width:900px){.hero .wrap{grid-template-columns:1fr}.store{max-width:380px}.works,.plans,.steps{grid-template-columns:1fr}.plus{grid-template-columns:1fr 1fr}}
 @media (max-width:520px){.plus{grid-template-columns:1fr}.facts{grid-template-columns:1fr 1fr}}
+
+.app{display:grid;grid-template-columns:.8fr 1.2fr;gap:40px;align-items:center;margin-top:36px}
+.app>*{min-width:0}
+.app .phone{margin:0 auto;width:min(270px,78%);display:block}
+.feat{display:grid;gap:14px;margin-top:22px}
+.feat div{display:grid;grid-template-columns:30px minmax(0,1fr);gap:12px;align-items:start}
+.feat svg{width:26px;height:26px;color:var(--tang-deep);margin-top:2px}
+.feat b{display:block;font-family:var(--display);font-size:17px}
+.feat span{color:var(--muted);font-size:15px}
+.app .cta{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px}
+.newtag{display:inline-block;background:var(--mint);color:#06281e;font-weight:800;font-size:12px;padding:4px 10px;border-radius:999px;margin-left:8px;vertical-align:middle}
+@media (max-width:900px){.app{grid-template-columns:1fr;gap:28px}}
 </style></head><body><script>try{history.scrollRestoration="manual"}catch(e){}(function(){function top(){if(!location.hash)window.scrollTo(0,0)}top();addEventListener("pageshow",top);addEventListener("load",function(){top();setTimeout(top,60)})})();</script>
 
 <header><div class="wrap nav">
   <a class="logo" href="#top"><svg viewBox="0 0 40 40" aria-hidden="true"><rect x="4" y="16" width="32" height="20" rx="4" fill="#fff" opacity=".12"/><path d="M4 16h32v4c0 3-2.7 5-5.3 5S25.3 23 25.3 20c0 3-2.4 5-5.3 5s-5.3-2-5.3-5c0 3-2.7 5-5.3 5S4 23 4 20z" fill="#ff6a1f"/><path d="M9.3 16h5.4v4c0 3-2.4 5-5.3 5V16zM20 16h5.3v4c0 3-2.4 5-5.3 5V16z" fill="#fff"/><rect x="14" y="26" width="12" height="10" rx="2" fill="#ff6a1f"/><path d="M6 16 10 6h20l4 10" fill="none" stroke="#fff" stroke-width="2.5" stroke-linejoin="round"/></svg>Devanture Web</a>
-  <ul><li><a href="#realisations">Réalisations</a></li><li><a href="#avant-apres">Avant / après</a></li><li><a href="#offres">Offres</a></li><li><a href="#contact">Contact</a></li></ul>
-  <a class="btn btn-tang" href="#contact">Maquette gratuite</a>
+  <ul><li><a href="#realisations">Réalisations</a></li><li><a href="#applications">Applications</a></li><li><a href="#avant-apres">Avant / après</a></li><li><a href="#offres">Offres</a></li><li><a href="#contact">Contact</a></li></ul>
+  <a class="btn btn-tang" href="#contact">Me contacter</a>
 </div></header>
 
 <section class="hero" id="top"><div class="wrap">
@@ -145,8 +157,8 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
     <div class="k hi" style="--i:0;background:rgba(255,106,31,.18);color:#ffb38a">Sites pour commerces et restaurants</div>
     <h1 class="hi" style="--i:1">Votre commerce mérite une <span class="o">belle devanture</span> sur Google aussi.</h1>
     <p class="lead hi" style="--i:2">Un site clair, rapide, pensé pour le téléphone, livré en 48 h. Vos clients appellent, réservent, viennent. Vous ne touchez à rien, je m'occupe de tout.</p>
-    <div class="cta hi" style="--i:3"><a class="btn btn-tang" href="#contact">Recevoir ma maquette gratuite</a><a class="btn btn-ghost" href="#realisations">Voir les sites</a></div>
-    <div class="facts hi" style="--i:4"><div><b>48 h</b><span>pour recevoir votre première version</span></div><div><b>0 €</b><span>de frais de création</span></div><div><b>9 / 10</b><span>de vos clients vous cherchent sur leur téléphone</span></div></div>
+    <div class="cta hi" style="--i:3"><a class="btn btn-tang" href="#contact">Demander mon site</a><a class="btn btn-ghost" href="#realisations">Voir les sites</a></div>
+    <div class="facts hi" style="--i:4"><div><b>48 h</b><span>pour recevoir votre première version</span></div><div><b>7 j / 7</b><span>vos mises à jour faites pour vous</span></div><div><b>9 / 10</b><span>de vos clients vous cherchent sur leur téléphone</span></div></div>
   </div>
   <div class="store hi" style="--i:2">
     <svg viewBox="0 0 520 440" aria-hidden="true">
@@ -173,6 +185,25 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
     <a class="work rv" href="briquet.html" style="--c:#16130f"><span class="tag">Brasserie · Loos-en-Gohelle</span><h3>Au Briquet du Chevalet</h3><p>Ardoise du jour, carte, vrais avis Google, plan d'accès.</p><span class="go">Ouvrir →</span><div class="phone"><img src="img/shot-briquet.jpg" alt="Aperçu du site Au Briquet du Chevalet" loading="lazy"></div><span class="ac"></span></a>
     <a class="work rv" href="jade.html" style="--c:#b3261e"><span class="tag">Buffet asiatique · démo</span><h3>Jardin de Jade</h3><p>Prix du buffet en direct, wok à composer, réservation en ligne.</p><span class="go">Ouvrir →</span><div class="phone"><img src="img/shot-jade.jpg" alt="Aperçu du site Jardin de Jade" loading="lazy"></div><span class="ac"></span></a>
     <a class="work rv" href="boulangerie.html" style="--c:#5e3012"><span class="tag">Boulangerie · démo</span><h3>Maison Delattre</h3><p>Fournées du jour, commande à retirer, gâteau sur mesure.</p><span class="go">Ouvrir →</span><div class="phone"><img src="img/shot-boulangerie.jpg" alt="Aperçu du site Maison Delattre" loading="lazy"></div><span class="ac"></span></a>
+  </div>
+</div></section>
+
+<section id="applications" style="background:var(--bg-2)"><div class="wrap">
+  <div class="k">Applications sur mesure</div>
+  <h2>Toutes vos demandes au même endroit.<span class="newtag">Nouveau</span></h2>
+  <p class="lead">Réservations par mail, demandes de devis, messages du site : je crée une application qui lit votre boîte mail à votre place et range chaque demande dans un carnet clair. Vous n'ouvrez plus vingt mails pour retrouver un numéro.</p>
+  <div class="app">
+    <a class="phone rv" href="app.html" aria-label="Essayer la démonstration de l'application"><img src="img/shot-app.jpg" alt="Aperçu de l'application : liste de demandes clients avec nom, message, bouton d'appel et statut" loading="lazy"></a>
+    <div class="rv">
+      <div class="feat">
+        <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg><p><b>Elle lit vos mails pour vous</b><span>Plusieurs fois par jour, elle repère les vraies demandes et ignore les pubs.</span></p></div>
+        <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h10"/></svg><p><b>Tout est regroupé</b><span>Nom du client, téléphone, email et message, sur une seule fiche.</span></p></div>
+        <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 8 3 8H3s3-1 3-8M10 21h4"/></svg><p><b>Une notification sur votre téléphone</b><span>Vous êtes prévenu dès qu'une nouvelle demande arrive.</span></p></div>
+        <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l4 4L19 6"/></svg><p><b>Un suivi simple</b><span>Nouveau, contacté, rendez-vous, client : vous savez qui rappeler.</span></p></div>
+      </div>
+      <p class="lead" style="font-size:16px">D'autres idées sur mesure : prise de commande, carte de fidélité, planning de l'équipe. Tarif sur devis, selon votre besoin.</p>
+      <div class="cta"><a class="btn btn-tang" href="app.html">Essayer la démo</a><a class="btn btn-ghost" href="#contact">En parler</a></div>
+    </div>
   </div>
 </div></section>
 
@@ -204,8 +235,8 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
   <div class="k">Offres</div>
   <h2>Des prix clairs, zéro frais de création.</h2>
   <div class="plans">
-    <div class="plan rv"><h3>Fiche Google</h3><div class="price">79 €<small> une fois</small></div><p class="sub">Pour être bien vu sur Google Maps, sans site. Offerte avec un abonnement.</p><ul><li>Photos, horaires, carte et services complétés</li><li>Description rédigée pour votre quartier</li><li>Réponses aux 10 derniers avis</li></ul><a class="btn btn-ghost" href="#contact">Me contacter</a></div>
-    <div class="plan star rv"><span class="badge">Le plus choisi</span><h3>Sérénité</h3><div class="price">49 €<small> / mois</small></div><p class="sub">0 € de création · engagement 12 mois, puis libre</p><ul><li>Site complet comme ceux ci-dessus, en 48 h</li><li>Nom de domaine et hébergement inclus</li><li>Jusqu'à 4 changements par mois, faits sous 48 h</li><li>Fiche Google entretenue, réponses aux avis</li></ul><a class="btn btn-tang" href="#contact">Recevoir ma maquette</a></div>
+    <div class="plan rv"><h3>Fiche Google</h3><div class="price">79 €<small> une fois</small></div><p class="sub">Pour être bien vu sur Google Maps, sans site. Incluse avec un abonnement.</p><ul><li>Photos, horaires, carte et services complétés</li><li>Description rédigée pour votre quartier</li><li>Réponses aux 10 derniers avis</li></ul><a class="btn btn-ghost" href="#contact">Me contacter</a></div>
+    <div class="plan star rv"><span class="badge">Le plus choisi</span><h3>Sérénité</h3><div class="price">49 €<small> / mois</small></div><p class="sub">0 € de création · engagement 12 mois, puis libre</p><ul><li>Site complet comme ceux ci-dessus, en 48 h</li><li>Nom de domaine et hébergement inclus</li><li>Jusqu'à 4 changements par mois, faits sous 48 h</li><li>Fiche Google entretenue, réponses aux avis</li></ul><a class="btn btn-tang" href="#contact">Me contacter</a></div>
     <div class="plan rv"><h3>Commerce+</h3><div class="price">89 €<small> / mois</small></div><p class="sub">0 € de création · engagement 12 mois, puis libre</p><ul><li>Tout Sérénité, plus :</li><li>Réservation ou commande en ligne, reçue par SMS et email</li><li>SMS automatique après la visite pour récolter des avis Google</li><li>Changements illimités, faits le jour même</li><li>Rapport mensuel : visites, appels, itinéraires</li></ul><a class="btn btn-ghost" href="#contact">Me contacter</a></div>
   </div>
   <p class="legal">Prix nets. TVA non applicable, article 293 B du CGI.</p>
@@ -214,9 +245,9 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
 </div></section>
 
 <section class="contact" id="contact"><div class="wrap">
-  <div class="k" style="background:rgba(255,106,31,.18);color:#ffb38a">Maquette gratuite</div>
-  <h2>Votre site, en 48 h, sans engagement.</h2>
-  <p style="margin-top:14px;max-width:32em;font-size:18px">Écrivez-moi le nom de votre commerce et votre ville. Je vous renvoie une première maquette gratuite. Si elle ne vous plaît pas, on en reste là.</p>
+  <div class="k" style="background:rgba(255,106,31,.18);color:#ffb38a">Contact</div>
+  <h2>Votre site en ligne sous 48 h.</h2>
+  <p style="margin-top:14px;max-width:32em;font-size:18px">Écrivez-moi le nom de votre commerce et votre ville, ou appelez-moi. On en parle 15 minutes, et je m'occupe de tout le reste.</p>
   <div class="card">
     <div class="line"><b id="mail">contact.devantureweb@gmail.com</b><button class="copy" type="button" data-copy="mail">Copier</button></div>
     <div class="line"><b id="tel">06 14 75 13 09</b><button class="copy" type="button" data-copy="tel">Copier</button></div>
