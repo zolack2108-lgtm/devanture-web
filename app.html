@@ -78,7 +78,7 @@ var list=document.getElementById('list'),toast=document.getElementById('toast');
 function say(t){toast.textContent=t;toast.classList.add('show');clearTimeout(say.t);say.t=setTimeout(function(){toast.classList.remove('show')},1800)}
 function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
 function fdate(s){try{var d=new Date(s);if(isNaN(d))return esc(s);return d.toLocaleDateString('fr-FR',{weekday:'short',day:'numeric',month:'short'})+' · '+d.toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'})}catch(e){return esc(s)}}
-function telHref(t){return 'tel:'+String(t||'').replace(/[^\d+]/g,'')}
+function telHref(t){return '#'}
 function render(){
   var c={};Object.keys(S).forEach(function(k){c[k]=0});leads.forEach(function(l){c[l.statut||'nouveau']=(c[l.statut||'nouveau']||0)+1});
   document.getElementById('stats').innerHTML=['nouveau','contacte','rdv','client'].map(function(k){return '<button type="button" class="stat" data-k="'+k+'" aria-pressed="'+(stat===k)+'"><b>'+c[k]+'</b><span>'+S[k]+'</span></button>'}).join('');
@@ -107,11 +107,11 @@ list.addEventListener('input',function(e){if(!e.target.matches('[data-note]'))re
 render();
 function ago(h){return new Date(Date.now()-h*36e5).toISOString()}
 leads=[
-{id:'a1',commerce:'Camille R.',nom:'Réservation de groupe',ville:'Lens',tel:'06 00 00 00 01',email:'camille.r@exemple.fr',date:ago(1),statut:'nouveau',message:'Bonjour, nous serions 12 samedi soir pour un anniversaire. Avez-vous de la place vers 20h ? Est-il possible d\u2019apporter un gâteau ?\nMerci d\u2019avance, Camille'},
-{id:'a2',commerce:'Julien M.',nom:'Réservation',ville:'Liévin',tel:'06 00 00 00 02',email:'julien.m@exemple.fr',date:ago(3),statut:'nouveau',message:'Bonsoir, une table pour 2 ce soir à 20h, c\u2019est possible ? En terrasse si le temps le permet.'},
-{id:'a3',commerce:'Entreprise Dubois',nom:'Demande de devis',ville:'Arras',tel:'03 00 00 00 03',email:'contact@dubois-exemple.fr',date:ago(22),statut:'contacte',note:'Rappeler jeudi matin, budget 25 € par personne',message:'Bonjour, nous organisons un repas d\u2019équipe pour 40 personnes le 12 décembre. Pouvez-vous nous envoyer une proposition de menu avec les prix ?'},
-{id:'a4',commerce:'Mairie de la commune',nom:'Commande',ville:'Avion',tel:'03 00 00 00 04',email:'accueil@mairie-exemple.fr',date:ago(30),statut:'rdv',note:'RDV vendredi 10h pour valider',message:'Bonjour, nous souhaitons commander un buffet pour la cérémonie des vœux, environ 60 personnes.'},
-{id:'a5',commerce:'Sophie L.',nom:'Message',ville:'Lens',tel:'06 00 00 00 05',email:'sophie.l@exemple.fr',date:ago(50),statut:'client',message:'Merci pour la soirée d\u2019hier, tout était parfait. On revient le mois prochain avec toute la famille !'}
+{id:'a1',commerce:'Camille R.',nom:'Réservation de groupe',ville:'Lens',tel:'06 00 00 00 XX',email:'camille.r@exemple.fr',date:ago(1),statut:'nouveau',message:'Bonjour, nous serions 12 samedi soir pour un anniversaire. Avez-vous de la place vers 20h ? Est-il possible d\u2019apporter un gâteau ?\nMerci d\u2019avance, Camille'},
+{id:'a2',commerce:'Julien M.',nom:'Réservation',ville:'Liévin',tel:'06 00 00 00 XX',email:'julien.m@exemple.fr',date:ago(3),statut:'nouveau',message:'Bonsoir, une table pour 2 ce soir à 20h, c\u2019est possible ? En terrasse si le temps le permet.'},
+{id:'a3',commerce:'Entreprise Dubois',nom:'Demande de devis',ville:'Arras',tel:'03 00 00 00 XX',email:'contact@dubois-exemple.fr',date:ago(22),statut:'contacte',note:'Rappeler jeudi matin, budget 25 € par personne',message:'Bonjour, nous organisons un repas d\u2019équipe pour 40 personnes le 12 décembre. Pouvez-vous nous envoyer une proposition de menu avec les prix ?'},
+{id:'a4',commerce:'Mairie de la commune',nom:'Commande',ville:'Avion',tel:'03 00 00 00 XX',email:'accueil@mairie-exemple.fr',date:ago(30),statut:'rdv',note:'RDV vendredi 10h pour valider',message:'Bonjour, nous souhaitons commander un buffet pour la cérémonie des vœux, environ 60 personnes.'},
+{id:'a5',commerce:'Sophie L.',nom:'Message',ville:'Lens',tel:'06 00 00 00 XX',email:'sophie.l@exemple.fr',date:ago(50),statut:'client',message:'Merci pour la soirée d\u2019hier, tout était parfait. On revient le mois prochain avec toute la famille !'}
 ];render();document.getElementById('sync').textContent=leads.length+' demandes · mise à jour automatique';
 })();
 </script>
