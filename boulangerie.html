@@ -244,7 +244,7 @@ function mom(h){return h<5.5?'nuit':h<9?'aube':h<17?'jour':h<20?'soir':'nuit'}
 var TC={nuit:'#0c1521',aube:'#f0a283',jour:'#fbfaf6',soir:'#1d3d5c'};
 function setM(m){document.documentElement.dataset.m=m;$('tc').setAttribute('content',TC[m])}
 function swap(fn){document.startViewTransition&&!matchMedia('(prefers-reduced-motion: reduce)').matches?document.startViewTransition(fn):fn()}
-function fit(el){var p=el.parentElement;el.style.display='inline-block';el.style.fontSize='100px';var w=el.getBoundingClientRect().width;el.style.display='';el.style.fontSize=Math.min(440,Math.floor(p.clientWidth/w*100*.98))+'px'}
+function fit(el){var p=el.parentElement;el.style.display='inline-block';el.style.fontSize='100px';var w=el.getBoundingClientRect().width;el.style.display='';el.style.fontSize=Math.min(440,innerHeight*.42,Math.floor(p.clientWidth/w*100*.98))+'px'}
 function nowH(){var d=new Date();return{day:d.getDay(),h:d.getHours()+d.getMinutes()/60}}
 function nextDay(day,src){for(var i=1;i<=7;i++){var d=(day+i)%7;if(src[d]&&src[d].length)return{i:i,d:d}}}
 var live=true;
